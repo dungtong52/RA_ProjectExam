@@ -146,7 +146,8 @@ public class Contact implements IContact {
                 if (Pattern.matches(emailRegex, email)) {
                     boolean isExist = false;
                     for (int i = 0; i < ContactManager.currentIndex; i++) {
-                        if (ContactManager.contacts[i].getEmail().equals(email)) {
+                        String existingEmail = ContactManager.contacts[i].getEmail();
+                        if (existingEmail != null && existingEmail.equalsIgnoreCase(email)) {
                             isExist = true;
                             break;
                         }
@@ -172,10 +173,11 @@ public class Contact implements IContact {
             System.out.print("Nhập vào số điện thoại liên hệ: ");
             String phone = scanner.nextLine();
             if (!isEmpty(phone)) {
-                if (Pattern.matches(phoneRegex, phoneRegex)) {
+                if (Pattern.matches(phoneRegex, phone)) {
                     boolean isExists = false;
                     for (int i = 0; i < ContactManager.currentIndex; i++) {
-                        if (!ContactManager.contacts[i].getPhone().equals(phone)) {
+                        String existingPhone = ContactManager.contacts[i].getPhone();
+                        if (existingPhone != null && existingPhone.equals(phone)) {
                             isExists = true;
                             break;
                         }
