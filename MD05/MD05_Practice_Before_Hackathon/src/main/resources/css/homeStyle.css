@@ -1,0 +1,36 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    margin: 30px auto;
+    width: 30%;
+}
+
+h1 {
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.container .div-btn {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 50px;
+}
+
+.div-btn .btn {
+    background-color: green;
+    color: white;
+    padding: 20px 40px;
+    font-weight: bold;
+    border-radius: 10px;
+    font-size: 20px;
+    text-decoration: none;
+}
+
+.div-btn .btn:hover {
+    background-color: darkgreen;
+    cursor: pointer;
+}

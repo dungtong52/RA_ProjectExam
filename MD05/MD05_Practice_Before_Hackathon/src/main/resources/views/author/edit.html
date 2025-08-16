@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Author</title>
+</head>
+<body>
+<div class="container">
+    <h1>Cập nhật thông tin Tác giả</h1>
+    <form th:action="@{/authors/edit}" th:object="${author}" method="post">
+        <label for="id">ID</label>
+        <input type="number" id="id" th:field="*{id}" readonly>
+
+        <label for="name">Author Name</label>
+        <input type="text" id="name" th:field="*{name}" required>
+        <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+
+        <label for="birthday">Birthday</label>
+        <input type="date" id="birthday" th:field="*{birthday}" required>
+        <div th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}"></div>
+
+        <label for="address">Address</label>
+        <input type="text" id="address" th:field="*{address}" required>
+        <div th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></div>
+
+        <label for="field">Field</label>
+        <input type="text" id="field" th:field="*{authorField}" required>
+        <div th:if="${#fields.hasErrors('authorField')}" th:errors="*{authorField}"></div>
+
+        <input type="submit" class="btn" value="Update">
+    </form>
+
+    <!--Msg-->
+    <div th:if="${errorMsg}">
+        <h3 th:text="${errorMsg}" class="error"></h3>
+    </div>
+</div>
+</body>
+</html>

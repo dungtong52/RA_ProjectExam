@@ -1,0 +1,103 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    width: 80%;
+    margin: 30px auto;
+    padding: 30px 50px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 10px #cccccc;
+}
+
+h1 {
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+.btn {
+    background-color: green;
+    color: white;
+    font-weight: bold;
+    padding: 15px 20px;
+    border-radius: 10px;
+    border: none;
+    text-decoration: none;
+}
+
+.btn:hover {
+    background-color: darkgreen;
+    cursor: pointer;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 30px auto;
+}
+
+table th, td {
+    border-bottom: solid 1px #eeeeee;
+    padding: 10px 15px;
+    text-align: left;
+}
+
+.btn-edit {
+    background-color: orange;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: none;
+    margin-right: 15px;
+    text-decoration: none;
+
+}
+
+.btn-edit:hover {
+    background-color: darkgoldenrod;
+    cursor: pointer;
+}
+
+.btn-delete {
+    background-color: red;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: none;
+    text-decoration: none;
+}
+
+.btn-edit:hover {
+    background-color: darkred;
+    cursor: pointer;
+}
+
+.error {
+    color: red;
+}
+
+.success {
+    color: blue;
+}
+
+.pagination {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 15px;
+}
+
+.pagination a {
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: #cccccc;
+}
+
+.pagination .active {
+    background-color: blue;
+    color: white;
+}

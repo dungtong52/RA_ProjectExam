@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Author</title>
+    <link rel="stylesheet" th:href="@{/css/authorListStyle.css}">
+</head>
+<body>
+<div class="container">
+    <h1>Danh sách tác giả</h1>
+    <a th:href="@{/authors/add}" class="btn">Thêm mới tác giả</a>
+    <form th:action="@{/authors/search}" method="get">
+        <input type="text" name="keyword" class="search" placeholder="Nhập lĩnh vực để tìm kiếm tác giả">
+        <input type="submit" value="Tìm kiếm" class="btn-search">
+    </form>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Author Name</th>
+            <th>Birthday</th>
+            <th>Address</th>
+            <th>Field</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+        <tr th:each="author : ${authors}">
+            <td th:text="${author.id}"></td>
+            <td th:text="${author.name}"></td>
+            <td th:text="${author.birthday}"></td>
+            <td th:text="${author.address}"></td>
+            <td th:text="${author.authorField}"></td>
+            <td th:text="${author.status} ? 'Hoạt động' : 'Không hoạt động'"></td>
+            <td>
+                <a th:href="@{/authors/edit/{id}(id=${author.id})}" class="btn-edit">Sửa</a>
+                <a th:href="@{/authors/delete/{id}(id=${author.id})}" class="btn-delete"
+                   onclick="return confirm('Bạn có chắc chắn muốn xóa không?')"
+                >Xóa</a>
+            </td>
+        </tr>
+    </table>
+
+    <!--Pagination-->
+    <div class="pagination" th:if="${totalPages > 1}">
+        <a th:each="i : ${#numbers.sequence(1, totalPages)}"
+           th:href="@{/authors(page=${i})}"
+           th:text="${i}"
+           th:classappend="${i == currentPage} ? 'active' : ''"></a>
+    </div>
+
+    <!--Msg-->
+    <div th:if="${errorMsg}">
+        <h3 th:text="${errorMsg}" class="error"></h3>
+    </div>
+    <div th:if="${successMsg}">
+        <h3 th:text="${successMsg}" class="success"></h3>
+    </div>
+</div>
+</body>
+</html>

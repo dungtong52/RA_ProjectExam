@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Author</title>
+</head>
+<body>
+<div class="container">
+    <h1>Thêm Tác giả</h1>
+    <form th:action="@{/authors/add}" th:object="${author}" method="post">
+        <label for="name">Author Name</label>
+        <input type="text" id="name" th:field="*{name}" required>
+        <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+
+        <label for="birthday">Birthday</label>
+        <input type="date" id="birthday" th:field="*{birthday}" required>
+        <div th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}"></div>
+
+        <label for="address">Address</label>
+        <input type="text" id="address" th:field="*{address}" required>
+        <div th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></div>
+
+        <label for="field">Field</label>
+        <input type="text" id="field" th:field="*{authorField}" required>
+        <div th:if="${#fields.hasErrors('authorField')}" th:errors="*{authorField}"></div>
+
+        <label>Status</label>
+        <label>
+            <input type="radio" value="true" th:field="*{status}" checked> Active
+        </label>
+        <label><input type="radio" value="false" th:field="*{status}"> Inactive
+        </label>
+
+        <input type="submit" class="btn" value="Add">
+    </form>
+
+    <!--Msg-->
+    <div th:if="${errorMsg}">
+        <h3 th:text="${errorMsg}" class="error"></h3>
+    </div>
+</div>
+</body>
+</html>
