@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/authStyle.css}">
+    <title>Register</title>
+</head>
+<body>
+<main class="container">
+    <img src="" alt="Logo" class="logo">
+    <h3 class="title">Please sign up</h3>
+    <form th:action="@{/register}" th:object="${user}" method="post" class="register-form">
+        <div class="input-div">
+            <input class="email-input" type="email" th:field="*{email}" placeholder="Email address"/>
+            <input class="username-input" type="text" th:field="*{username}" placeholder="Username"/>
+            <input class="password-input" type="password" th:field="*{password}" placeholder="Password"/>
+        </div>
+        <p>
+            Already have an account,
+            <a th:href="@{/login}" class="link">click here</a>
+        </p>
+        <button class="btn" type="submit">Sign up</button>
+    </form>
+    <p class="footer">&copy; 2025 - Rikkei Education</p>
+</main>
+
+<!--Error MSG-->
+<div class="error-msg" th:if="${errors}">
+    <ul>
+        <li th:each="err : ${errors}" th:text="${err.defaultMessage}"></li>
+    </ul>
+</div>
+<div class="error-msg" th:if="${errorMsg}" th:text="${errorMsg}"></div>
+
+</body>
+</html>

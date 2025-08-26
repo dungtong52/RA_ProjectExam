@@ -1,0 +1,96 @@
+/* MAIN */
+.container {
+    width: 300px;
+    margin: 106px auto 0;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+}
+
+.container .logo {
+    display: block;
+    margin: 0 auto;
+    width: 150px;
+}
+
+.container .title {
+    font-size: 26px;
+    text-align: left;
+    margin-top: 24px;
+}
+
+/* form */
+.container form {
+    margin-top: 18px;
+}
+
+form input {
+    width: 100%;
+    border: 1px solid #dee2e6;
+    font-size: 16px;
+    padding: 18px 12px;
+}
+
+form input::placeholder {
+    color: #212529;
+}
+
+.register-form .email-input {
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+}
+
+.register-form .username-input {
+    border-top: none;
+    border-bottom: none;
+}
+
+.register-form .password-input {
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    margin-bottom: 10px;
+}
+
+form .link {
+    color: #0d6efd;
+}
+
+form .btn {
+    color: #ffffff;
+    background-color: #0d6efd;
+    border: 1px solid #0d6efd;
+    border-radius: 6px;
+    width: 100%;
+    padding: 11px;
+    margin: 16px 0 48px;
+    font-size: 16px;
+    transition: transform 1s ease-out;
+}
+
+.btn:hover {
+    cursor: pointer;
+    transform: scale(1.05, 1.05);
+}
+
+.container .footer {
+    color: rgba(33, 37, 41, 0.75);
+}
+
+.error-msg {
+    padding: 10px 15px;
+    border-radius: 5px;
+    background-color: #ffe5e8;
+    margin: 20px 50px;
+}
+
+
+/* Login Form */
+.login-form .username-input {
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+}
+
+.login-form .password-input {
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    margin-bottom: 10px;
+}

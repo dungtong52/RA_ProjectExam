@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/authStyle.css}">
+    <title>Login</title>
+</head>
+<body>
+<main class="container">
+    <img src="" alt="Logo" class="logo">
+    <h3 class="title">Please sign in</h3>
+    <form th:action="@{/login}" th:object="${login}" method="post" class="login-form">
+        <div class="input-div">
+            <input class="username-input" type="text" th:field="*{username}" placeholder="Username"/>
+            <input class="password-input" type="password" th:field="*{password}" placeholder="Password"/>
+        </div>
+        <p>
+            Don't have an account,
+            <a th:href="@{/register}" class="link">click here</a>
+        </p>
+        <button class="btn" type="submit">Sign in</button>
+    </form>
+    <p class="footer">&copy; 2025 - Rikkei Education</p>
+</main>
+
+<!--Error MSG-->
+<div class="error-msg" th:if="${errors}">
+    <ul>
+        <li th:each="err : ${errors}" th:text="${err.defaultMessage}"></li>
+    </ul>
+</div>
+<div class="error-msg" th:if="${errorMsg}" th:text="${errorMsg}"></div>
+
+</body>
+</html>
