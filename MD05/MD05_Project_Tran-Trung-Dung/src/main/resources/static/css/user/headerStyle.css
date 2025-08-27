@@ -23,6 +23,29 @@ header {
     margin-left: 30px;
 }
 
+.link {
+    flex-grow: 1;
+}
+
+.link ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 4rem;
+}
+
+.link li a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-size: 1rem;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.link li a:hover {
+    color: var(--background-color-btn);
+}
+
 .user-info {
     display: flex;
     align-items: center;
@@ -55,7 +78,7 @@ header {
     color: #ff6347;
 }
 
-.logout-link{
+.logout-link {
     display: flex;
     gap: 5px;
 }

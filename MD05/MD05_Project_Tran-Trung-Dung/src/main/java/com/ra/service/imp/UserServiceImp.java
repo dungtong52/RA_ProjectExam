@@ -55,6 +55,11 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
+    public Optional<User> findUserById(Long id) {
+        return userRepo.findById(id);
+    }
+
+    @Override
     public Page<User> searchUsers(String keyword, Pageable pageable) {
         Specification<User> specification = Specification.allOf(
                 UserSpecification.hasKeyword(keyword),

@@ -20,6 +20,8 @@ public interface UserService {
 
     Optional<User> findUserByPhone(String phone);
 
+    Optional<User> findUserById(Long id);
+
     Page<User> searchUsers(String keyword, Pageable pageable);
 
     User updateStudent(Long id, UserRegisterRequest request);

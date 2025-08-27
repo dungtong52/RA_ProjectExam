@@ -35,12 +35,13 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "create_at")
-    private LocalDate createAt = LocalDate.now();
+    @Column(name = "create_at", columnDefinition = "DATE DEFAULT CURRENT_DATE")
+    private LocalDate createAt;
 
     @Enumerated(EnumType.STRING)
-    private Role role = Role.STUDENT;
+    @Column(name = "role", columnDefinition = "VARCHAR(20) DEFAULT 'STUDENT'")
+    private Role role;
 
-    @Column(name = "status")
-    private Boolean status = true;
+    @Column(name = "status", columnDefinition = "BOOLEAN DEFAULT TRUE")
+    private Boolean status;
 }

@@ -34,7 +34,7 @@
     padding: 0.5rem 1rem;
     border: none;
     border-radius: 4px;
-    background-color: #2563eb;
+    background-color: var(--background-color-btn);
     color: var(--card-background);
     cursor: pointer;
     font-size: 0.9rem;
@@ -150,7 +150,7 @@
 }
 
 .pagination a.active {
-    background-color: #2563eb;
+    background-color: var(--background-color-btn);
     color: var(--card-background);
 }
 

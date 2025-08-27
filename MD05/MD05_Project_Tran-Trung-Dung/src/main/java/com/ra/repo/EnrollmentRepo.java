@@ -1,7 +1,9 @@
 package com.ra.repo;
 
+import com.ra.model.entity.Course;
 import com.ra.model.entity.Enrollment;
 import com.ra.model.entity.EnrollmentStatus;
+import com.ra.model.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
@@ -12,4 +14,6 @@ import java.util.Optional;
 public interface EnrollmentRepo extends JpaRepository<Enrollment, Long>, JpaSpecificationExecutor<Enrollment> {
 
     Optional<Enrollment> findByStatusAndId(EnrollmentStatus status, Long id);
+
+    boolean existsByUserIdAndCourse(Long userId, Course course);
 }

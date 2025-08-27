@@ -32,6 +32,6 @@ aside {
 .nav-item i {
     font-size: 1rem;
     margin-right: 1rem;
-    color: #2563eb;
+    color: var(--background-color-btn);
     transform: translateY(-2px);
 }

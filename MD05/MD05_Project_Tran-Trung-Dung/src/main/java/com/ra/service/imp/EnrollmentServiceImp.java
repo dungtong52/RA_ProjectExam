@@ -1,7 +1,9 @@
 package com.ra.service.imp;
 
+import com.ra.model.entity.Course;
 import com.ra.model.entity.Enrollment;
 import com.ra.model.entity.EnrollmentStatus;
+import com.ra.model.entity.User;
 import com.ra.repo.EnrollmentRepo;
 import com.ra.service.EnrollmentService;
 import com.ra.specification.EnrollmentSpecification;
@@ -35,6 +37,11 @@ public class EnrollmentServiceImp implements EnrollmentService {
     }
 
     @Override
+    public Enrollment createEnrollment(Enrollment enrollment) {
+        return enrollmentRepo.save(enrollment);
+    }
+
+    @Override
     public void approveEnrollment(Long id) {
         Enrollment enrollment = enrollmentRepo.findByStatusAndId(EnrollmentStatus.WAITING, id)
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy đơn đăng ký khóa học"));
@@ -48,5 +55,10 @@ public class EnrollmentServiceImp implements EnrollmentService {
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy đơn đăng ký khóa học"));
         enrollment.setStatus(EnrollmentStatus.DENIED);
         enrollmentRepo.save(enrollment);
+    }
+
+    @Override
+    public boolean existsByUserIdAndCourse(Long userId, Course course) {
+        return enrollmentRepo.existsByUserIdAndCourse(userId, course);
     }
 }

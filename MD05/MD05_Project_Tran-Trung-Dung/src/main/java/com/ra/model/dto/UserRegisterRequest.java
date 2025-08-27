@@ -36,7 +36,7 @@ public class UserRegisterRequest {
 
     @NotBlank(message = "Số điện thoại không được để trống")
     @Size(max = 20, message = "Số điện thoại phải có độ dài dưới 20 ký tự")
-    @Pattern(regexp = "^(0|\\+84)\\d{9}$", message = "Số điện thoại không đúng định dạng")
+    @Pattern(regexp = "^0\\d{9,10}$", message = "Số điện thoại không đúng định dạng")
     private String phone;
 
     @NotBlank(message = "Mật khẩu không được để trống")
