@@ -1,0 +1,79 @@
+.main-content {
+    padding: 1.2rem;
+    background-color: var(--background-color);
+    font-family: Arial, sans-serif;
+}
+
+.course-form {
+    padding: 30px 40px;
+    width: 100%;
+    max-width: 600px;
+    background-color: var(--card-background);
+    border-radius: 20px;
+    text-align: left;
+    margin: 0 auto;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.main-content h2 {
+    font-size: 1.3rem;
+    color: var(--text-color);
+    margin-bottom: 12px;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    border: 1px solid var(--light-text-color);
+}
+
+.btn {
+    padding: 10px 15px;
+    border: none;
+    background-color: #2563eb;
+    color: var(--card-background);
+    font-size: 1rem;
+    font-weight: 500;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-right: 10px;
+}
+
+.btn:hover {
+    background-color: var(--primary-color);
+}
+
+.btn-cancel {
+    text-decoration: none;
+    padding: 10px 15px;
+    border: none;
+    background-color: var(--light-text-color);
+    color: var(--border-color);
+    font-size: 1rem;
+    font-weight: 500;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-cancel:hover {
+    background-color: #717171;
+}
+
+.image-wrapper{
+    margin-bottom: 10px;
+}
+
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    font-style: italic;
+}

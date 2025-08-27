@@ -1,1 +1,3 @@
-1. Can pattern cho email, phone cho chuyen nghiep
+1. In success
+2. Làm thêm phân quyền thủ công
+3. Kiểm tra lại toàn bộ code, css. Test xem còn sai chức năng nào không?

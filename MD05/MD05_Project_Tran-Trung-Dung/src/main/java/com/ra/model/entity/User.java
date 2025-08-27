@@ -18,7 +18,7 @@ public class User {
     private Long id;
 
     @Column(name = "name", nullable = false, length = 100)
-    private String fullName;
+    private String name;
 
     @Column(name = "dob", nullable = false)
     private LocalDate dob;

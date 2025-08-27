@@ -67,7 +67,7 @@ public class UserServiceImp implements UserService {
     public User updateStudent(Long id, UserRegisterRequest request) {
         return userRepo.findById(id)
                 .map(user -> {
-                    user.setFullName(request.getFullName());
+                    user.setName(request.getFullName());
                     user.setDob(request.getDob());
                     user.setEmail(request.getEmail());
                     user.setSex(request.getSex());

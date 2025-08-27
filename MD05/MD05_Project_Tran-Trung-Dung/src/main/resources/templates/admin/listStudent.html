@@ -7,6 +7,7 @@
     <link rel="stylesheet" th:href="@{/css/adminStyle.css}">
     <link rel="stylesheet" th:href="@{/css/admin/headerStyle.css}">
     <link rel="stylesheet" th:href="@{/css/admin/sidebarStyle.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/listStudentStyle.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
 </head>
 <body>
@@ -16,7 +17,85 @@
     <aside th:replace="~{admin/component/sidebar :: sidebar-fragment}"></aside>
 
     <main class="main-content">
+        <div class="student-manager-header">
+            <h2>Student Manager</h2>
+            <div class="student-manager-controls">
+                <form th:action="@{/admin/users}" method="get">
+                    <select name="sortParam" id="sort">
+                        <option value="id_asc" th:selected="${sort == 'id_asc'}">
+                            Sort By ID tăng dần
+                        </option>
+                        <option value="id_desc" th:selected="${sort == 'id_desc'}">
+                            Sort By ID giảm dần
+                        </option>
+                        <option value="name_asc" th:selected="${sort == 'name_asc'}">
+                            Sort By Name tăng dần
+                        </option>
+                        <option value="name_desc" th:selected="${sort == 'name_desc'}">
+                            Sort By Name giảm dần
+                        </option>
+                    </select>
 
+                    <input type="text" name="keyword" placeholder="search by id, email or name"
+                           th:value="${keyword}">
+
+                    <button type="submit">Search</button>
+                </form>
+            </div>
+
+        </div>
+
+        <div class="student-table-container">
+            <table class="student-table">
+                <thead>
+                <tr>
+                    <th>Student ID</th>
+                    <th>Student Name</th>
+                    <th>Email</th>
+                    <th>Gender</th>
+                    <th>Phone</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="student : ${students}">
+                    <td th:text="${student.id}"></td>
+                    <td th:text="${student.name}"></td>
+                    <td th:text="${student.email}"></td>
+                    <td th:text="${student.sex} ? 'Male' : 'Female'"></td>
+                    <td th:text="${student.phone}"></td>
+                    <td>
+                        <span th:classappend="${student.status} ? 'status-active' : 'status-inactive'"
+                              th:text="${student.status} ? 'Active' : 'Inactive'">Active</span>
+                    </td>
+                    <td class="action-buttons">
+                        <a
+                                th:href="@{user/{id}(id=${student.id}, page=${currentPage})}"
+                                th:classappend="${student.status} ? 'lock' : 'unlock'"
+                                th:text="${student.status} ? 'Lock' : 'Unlock'">Lock
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="pagination">
+            <a th:if="${currentPage > 0}"
+               th:href="@{/admin/users(page=${currentPage - 1}, size=${pageSize}, keyword=${keyword}, sort=${sort})}"
+               class="arrow">&larr;</a>
+
+            <a th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+               th:href="@{/admin/users(page=${i}, size=${pageSize}, keyword=${keyword}, sort=${sort})}"
+               th:text="${i+1}"
+               th:classappend="${i == currentPage} ? 'active pag-btn' : 'pag-btn'">
+            </a>
+
+            <a th:if="${currentPage < totalPages - 1}"
+               th:href="@{/admin/users(page=${currentPage + 1}, size=${pageSize}, keyword=${keyword}, sort=${sort})}"
+               class="arrow">&rarr;</a>
+        </div>
     </main>
 </div>
 </body>

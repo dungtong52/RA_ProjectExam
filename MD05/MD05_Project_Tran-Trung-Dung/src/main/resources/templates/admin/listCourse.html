@@ -1,10 +1,103 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title th:fragment="title">List Courses</title>
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/adminStyle.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/headerStyle.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/sidebarStyle.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/listCourseStyle.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
 </head>
 <body>
+<header th:replace="~{admin/component/header :: header-fragment}"></header>
 
+<div class="main-container">
+    <aside th:replace="~{admin/component/sidebar :: sidebar-fragment}"></aside>
+
+    <main class="main-content">
+        <div class="course-manager-header">
+            <div class="title">
+                <h2>Course Manager</h2>
+                <a th:href="@{/admin/course/add}">Add new course</a>
+            </div>
+
+            <div class="course-manager-controls">
+                <form th:action="@{/admin/courses}" method="get">
+                    <select name="sortParam" id="sort">
+                        <option value="id_asc" th:selected="${sort == 'id_asc'}">
+                            Sort By ID tăng dần
+                        </option>
+                        <option value="id_desc" th:selected="${sort == 'id_desc'}">
+                            Sort By ID giảm dần
+                        </option>
+                        <option value="name_asc" th:selected="${sort == 'name_asc'}">
+                            Sort By Name tăng dần
+                        </option>
+                        <option value="name_desc" th:selected="${sort == 'name_desc'}">
+                            Sort By Name giảm dần
+                        </option>
+                    </select>
+
+                    <input type="text" name="keyword" placeholder="search by name"
+                           th:value="${keyword}">
+
+                    <button type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="course-table-container">
+            <table class="course-table">
+                <thead>
+                <tr>
+                    <th>Course ID</th>
+                    <th>Course Name</th>
+                    <th>Duration (Hour)</th>
+                    <th>Instructor</th>
+                    <th>Image</th>
+                    <th>Created Date</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="course : ${courses}">
+                    <td th:text="${course.id}"></td>
+                    <td th:text="${course.name}"></td>
+                    <td th:text="${course.duration}"></td>
+                    <td th:text="${course.instructor}"></td>
+                    <td>
+                        <img th:src="${course.image}" width="50" height="50" th:alt="${course.name}">
+                    </td>
+                    <td th:text="${#temporals.format(course.createAt, 'dd/MM/yyyy')}"></td>
+                    <td class="action-buttons">
+                        <a class="btn-edit" th:href="@{/admin/course/edit/{id}(id=${course.id}, page=${currentPage})}"><i class="fa-solid fa-pen"></i></a>
+                        <a class="btn-delete" th:href="@{/admin/course/delete/{id}(id=${course.id}, page=${currentPage})}"
+                        onclick="return confirm('Bạn có chắc chắn muốn xóa khóa học này?')"
+                        ><i class="fa-solid fa-trash"></i></a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="pagination">
+            <a th:if="${currentPage > 0}"
+               th:href="@{/admin/courses(page=${currentPage - 1}, size=${pageSize}, keyword=${keyword}, sort=${sort})}"
+               class="arrow">&larr;</a>
+
+            <a th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+               th:href="@{/admin/courses(page=${i}, size=${pageSize}, keyword=${keyword}, sort=${sort})}"
+               th:text="${i+1}"
+               th:classappend="${i == currentPage} ? 'active pag-btn' : 'pag-btn'">
+            </a>
+
+            <a th:if="${currentPage < totalPages - 1}"
+               th:href="@{/admin/courses(page=${currentPage + 1}, size=${pageSize}, keyword=${keyword}, sort=${sort})}"
+               class="arrow">&rarr;</a>
+        </div>
+    </main>
+</div>
 </body>
 </html>

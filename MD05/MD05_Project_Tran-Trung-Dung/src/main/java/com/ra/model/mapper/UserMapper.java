@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class UserMapper {
     public User toModel(UserRegisterRequest request) {
         return User.builder()
-                .fullName(request.getFullName())
+                .name(request.getFullName())
                 .dob(request.getDob())
                 .email(request.getEmail())
                 .sex(request.getSex())
@@ -22,7 +22,7 @@ public class UserMapper {
     public UserResponse toResponse(User user) {
         return UserResponse.builder()
                 .id(user.getId())
-                .fullName(user.getFullName())
+                .fullName(user.getName())
                 .dob(user.getDob())
                 .email(user.getEmail())
                 .sex(user.getSex())

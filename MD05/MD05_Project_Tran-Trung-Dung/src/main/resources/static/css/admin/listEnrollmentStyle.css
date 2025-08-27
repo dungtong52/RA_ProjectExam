@@ -1,0 +1,160 @@
+.main-content {
+    padding: 2rem;
+    background-color: var(--background-color);
+    font-family: Arial, sans-serif;
+}
+
+.enrollment-manager-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.enrollment-manager-header h2 {
+    font-size: 1.5rem;
+    color: var(--text-color);
+}
+
+.enrollment-manager-controls form {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.enrollment-manager-controls select,
+.enrollment-manager-controls input {
+    padding: 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-size: 0.9rem;
+}
+
+.enrollment-manager-controls button {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    background-color: #2563eb;
+    color: var(--card-background);
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+}
+
+.enrollment-manager-controls button:hover {
+    background-color: var(--primary-color);
+}
+
+.enrollment-table-container {
+    background-color: var(--card-background);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.enrollment-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.enrollment-table th,
+.enrollment-table td {
+    color: var(--text-color);
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.enrollment-table th {
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.enrollment-table tr:last-child td {
+    border-bottom: none;
+}
+
+.enrollment-table td {
+    font-size: 0.9rem;
+}
+
+.status-badge {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.status-badge.waiting {
+    color: orange;
+}
+
+.status-badge.confirm {
+    color: green;
+}
+
+.status-badge.denied {
+    color: red;
+}
+
+.status-badge.cancel {
+    color: purple;
+}
+
+.action-buttons a {
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.action-buttons .btn-confirm {
+    background-color: #ffda7a;
+    border: 1px solid #7c5b00;
+    color: #7c5b00;
+    text-decoration: none;
+    padding: 6px;
+    border-radius: 5px;
+}
+
+.action-buttons .btn-deny {
+    background-color: #73ff94;
+    border: 1px solid #006117;
+    color: #006117;
+    text-decoration: none;
+    padding: 6px;
+    border-radius: 5px;
+}
+
+.action-buttons .btn-confirm:hover {
+    background-color: #e0a800;
+}
+
+.action-buttons .btn-deny:hover {
+    background-color: #218838;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1.5rem;
+    gap: 0.5rem;
+}
+
+.pagination a,
+.pagination span {
+    padding: 0.5rem 0.8rem;
+    border-radius: 4px;
+    text-decoration: none;
+    color: var(--text-color);
+    background-color: var(--card-background);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+}
+
+.pagination a.active {
+    background-color: #2563eb;
+    color: var(--card-background);
+}
+
+.pagination .arrow {
+    font-size: 1rem;
+    font-weight: bold;
+}

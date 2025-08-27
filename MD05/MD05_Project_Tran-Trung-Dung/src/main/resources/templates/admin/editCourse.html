@@ -1,10 +1,57 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title th:fragment="title">Edit Course</title>
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/adminStyle.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/headerStyle.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/sidebarStyle.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/courseStyle.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
 </head>
 <body>
+<header th:replace="~{admin/component/header :: header-fragment}"></header>
 
+<div class="main-container">
+    <aside th:replace="~{admin/component/sidebar :: sidebar-fragment}"></aside>
+
+    <main class="main-content">
+        <div class="course-form">
+            <h2>Edit course</h2>
+            <form th:action="@{/admin/course/add}" th:object="${course}" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="name">Course Name</label>
+                    <input type="text" id="name" th:field="*{name}">
+                </div>
+                <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error-message"></div>
+
+                <div class="form-group">
+                    <label for="duration">Duration</label>
+                    <input type="number" id="duration" th:field="*{duration}">
+                </div>
+                <div th:if="${#fields.hasErrors('duration')}" th:errors="*{duration}" class="error-message"></div>
+
+                <div class="form-group">
+                    <label for="instructor">Instructor</label>
+                    <input type="text" id="instructor" th:field="*{instructor}">
+                </div>
+                <div th:if="${#fields.hasErrors('instructor')}" th:errors="*{instructor}" class="error-message"></div>
+
+                <div class="form-group">
+                    <label for="image">Image</label>
+                    <input type="file" name="imageFile" id="image">
+                </div>
+                <div th:if="${#fields.hasErrors('image')}" th:errors="*{image}" class="error-message"></div>
+                <div class="image-wrapper">
+                    <img th:src="${course.image}" width="80" height="80" th:alt="${course.name}">
+                </div>
+
+                <button type="submit" class="btn">Update</button>
+                <a th:href="@{/admin/courses}" class="btn-cancel">Cancel</a>
+            </form>
+        </div>
+    </main>
+</div>
 </body>
 </html>

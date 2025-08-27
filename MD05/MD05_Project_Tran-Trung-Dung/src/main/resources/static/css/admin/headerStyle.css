@@ -2,10 +2,14 @@ header {
     background-color: var(--card-background);
     box-shadow: var(--shadow);
     padding: 1rem 2rem;
+    border-bottom: 1px solid var(--border-color);
+    height: 80px;
+}
+
+.header-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid var(--border-color);
 }
 
 .logo {
@@ -16,21 +20,42 @@ header {
 .logo img {
     height: 40px;
     margin-right: 10px;
-}
-
-.logo span {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: var(--primary-color);
+    margin-left: 30px;
 }
 
 .user-info {
     display: flex;
     align-items: center;
+    justify-content: center;
+    gap: 30px;
+}
+
+.user-info i {
+    font-size: 1rem;
+    cursor: pointer;
+    color: #2563eb;
 }
 
 .user-info img {
-    height: 24px;
-    margin-left: 20px;
-    cursor: pointer;
+    height: 36px;
+    width: 36px;
+    object-fit: cover;
+    border-radius: 999px;
+}
+
+.user-info a {
+    display: flex;
+    align-items: center;
+    color: var(--text-color);
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+
+.user-info a:hover {
+    color: #ff6347;
+}
+
+.logout-link{
+    display: flex;
+    gap: 5px;
 }

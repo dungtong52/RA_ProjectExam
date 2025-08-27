@@ -1,10 +1,112 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title th:fragment="title">List Enrollments</title>
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/adminStyle.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/headerStyle.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/sidebarStyle.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/listEnrollmentStyle.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
 </head>
 <body>
+<header th:replace="~{admin/component/header :: header-fragment}"></header>
 
+<div class="main-container">
+    <aside th:replace="~{admin/component/sidebar :: sidebar-fragment}"></aside>
+
+    <main class="main-content">
+        <div class="enrollment-manager-header">
+            <h2>Enrollment Manager</h2>
+            <div class="enrollment-manager-controls">
+                <form th:action="@{/admin/enrollments}" method="get">
+                    <select name="sortParam" id="sort">
+                        <option value="id_asc" th:selected="${sort == 'id_asc'}">
+                            Sort By ID tăng dần
+                        </option>
+                        <option value="id_desc" th:selected="${sort == 'id_desc'}">
+                            Sort By ID giảm dần
+                        </option>
+                        <option value="name_asc" th:selected="${sort == 'name_asc'}">
+                            Sort By Name tăng dần
+                        </option>
+                        <option value="name_desc" th:selected="${sort == 'name_desc'}">
+                            Sort By Name giảm dần
+                        </option>
+                    </select>
+
+                    <select name="statusFilter" id="statusFilter">
+                        <option value="" th:selected="${statusFilter == null}">
+                            All Status
+                        </option>
+                        <option th:each="status : ${T(com.ra.model.entity.EnrollmentStatus).values()}"
+                                th:value="${status}"
+                                th:text="${status}"
+                                th:selected="${status.toString() == statusFilter}">
+                            Status
+                        </option>
+                    </select>
+
+                    <input type="text" name="keyword" placeholder="search by name"
+                           th:value="${keyword}">
+
+                    <button type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="enrollment-table-container">
+            <table class="enrollment-table">
+                <thead>
+                <tr>
+                    <th>Enrollment ID</th>
+                    <th>Student Name</th>
+                    <th>Course Name</th>
+                    <th>Registered Date</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="enrollment : ${enrollments}">
+                    <td th:text="${enrollment.id}"></td>
+                    <td th:text="${enrollment.user.name}"></td>
+                    <td th:text="${enrollment.course.name}"></td>
+                    <td th:text="${#temporals.format(enrollment.registeredAt, 'dd/MM/yyyy')}"></td>
+                    <td>
+                        <span th:text="${enrollment.status.displayName}"
+                              th:class="'status-badge ' + ${enrollment.status.name().toLowerCase()}"></span>
+                    </td>
+                    <td class="action-buttons">
+                        <div th:if="${enrollment.status.name() == 'WAITING'}">
+                            <a class="btn-confirm"
+                               th:href="@{/admin/enrollment/confirm/{id}(id=${enrollment.id}, page=${currentPage})}">Confirm</a>
+                            <a class="btn-deny"
+                               th:href="@{/admin/enrollment/deny/{id}(id=${enrollment.id}, page=${currentPage})}">Denied</a>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="pagination">
+            <a th:if="${currentPage > 0}"
+               th:href="@{/admin/enrollments(page=${currentPage - 1}, size=${pageSize}, keyword=${keyword}, sort=${sort})}"
+               class="arrow">&larr;</a>
+
+            <a th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+               th:href="@{/admin/enrollments(page=${i}, size=${pageSize}, keyword=${keyword}, sort=${sort})}"
+               th:text="${i+1}"
+               th:classappend="${i == currentPage} ? 'active pag-btn' : 'pag-btn'">
+            </a>
+
+            <a th:if="${currentPage < totalPages - 1}"
+               th:href="@{/admin/enrollments(page=${currentPage + 1}, size=${pageSize}, keyword=${keyword}, sort=${sort})}"
+               class="arrow">&rarr;</a>
+        </div>
+    </main>
+</div>
 </body>
 </html>

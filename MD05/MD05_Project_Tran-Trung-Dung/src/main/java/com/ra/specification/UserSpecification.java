@@ -11,7 +11,7 @@ public class UserSpecification {
                         : cb.or(
                         cb.like(root.get("id").as(String.class), "%" + keyword.toLowerCase() + "%"),
                         cb.like(cb.lower(root.get("email")), "%" + keyword.toLowerCase() + "%"),
-                        cb.like(cb.lower(root.get("full_name")), "%" + keyword.toLowerCase() + "%")
+                        cb.like(cb.lower(root.get("name")), "%" + keyword.toLowerCase() + "%")
                 );
     }
 

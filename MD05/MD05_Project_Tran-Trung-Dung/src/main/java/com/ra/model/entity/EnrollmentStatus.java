@@ -1,8 +1,18 @@
 package com.ra.model.entity;
 
+import lombok.Getter;
+
+@Getter
 public enum EnrollmentStatus {
-    WAITING,
-    DENIED,
-    CANCEL,
-    CONFIRM
+    WAITING("WAITING"),
+    DENIED("DENIED"),
+    CANCEL("CANCEL"),
+    CONFIRM("CONFIRM");
+
+    private final String displayName;
+
+    EnrollmentStatus(String displayName) {
+        this.displayName = displayName;
+    }
+
 }
