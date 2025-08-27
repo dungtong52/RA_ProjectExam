@@ -1,0 +1,29 @@
+:root {
+    --primary-color: #6c63ff; /* Màu chủ đạo */
+    --text-color: #333;
+    --light-text-color: #888;
+    --background-color: #f7f9fc;
+    --card-background: #fff;
+    --border-color: #e0e6ed;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--background-color);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-container {
+    display: flex;
+    height: 100vh;
+}
+
+.main-content {
+    flex-grow: 1;
+    padding: 2rem;
+    overflow-y: auto;
+}

@@ -38,7 +38,6 @@ public class AuthController {
                            Model model, RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
             model.addAttribute("user", request);
-            model.addAttribute("errors", result.getAllErrors());
             return "auth/register";
         }
         User newUser = userService.register(request);
@@ -58,7 +57,6 @@ public class AuthController {
                         Model model, HttpSession session) {
         if (result.hasErrors()) {
             model.addAttribute("login", request);
-            model.addAttribute("errors", result.getAllErrors());
             return "auth/login";
         }
         return userService.login(request)

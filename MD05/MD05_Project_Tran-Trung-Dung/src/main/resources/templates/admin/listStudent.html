@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:fragment="title">List Account</title>
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/adminStyle.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/headerStyle.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/sidebarStyle.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
+</head>
+<body>
+<header th:replace="~{admin/component/header :: header-fragment}"></header>
+
+<div class="main-container">
+    <aside th:replace="~{admin/component/sidebar :: sidebar-fragment}"></aside>
+
+    <main class="main-content">
+
+    </main>
+</div>
+</body>
+</html>

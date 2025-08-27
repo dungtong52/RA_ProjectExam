@@ -1,36 +1,45 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" th:href="@{/css/reset.css}">
-    <link rel="stylesheet" th:href="@{/css/authStyle.css}">
+    <link rel="stylesheet" th:href="@{/css/auth/loginStyle.css}">
     <title>Login</title>
 </head>
 <body>
-<main class="container">
-    <img src="" alt="Logo" class="logo">
-    <h3 class="title">Please sign in</h3>
-    <form th:action="@{/login}" th:object="${login}" method="post" class="login-form">
-        <div class="input-div">
-            <input class="username-input" type="text" th:field="*{username}" placeholder="Username"/>
-            <input class="password-input" type="password" th:field="*{password}" placeholder="Password"/>
+<div class="container">
+    <div class="image-wrapper">
+        <img th:src="@{/images/register-background.png}" alt="background">
+    </div>
+
+    <div class="right-panel">
+        <div class="text-overlay">
+            <h1 class="join-us-heading">Join us today <span class="hand-emoji">👋</span></h1>
+            <p class="description-text">Clarity gives you the blocks and components you need to create a truly
+                professional website.</p>
         </div>
-        <p>
-            Don't have an account,
-            <a th:href="@{/register}" class="link">click here</a>
-        </p>
-        <button class="btn" type="submit">Sign in</button>
-    </form>
-    <p class="footer">&copy; 2025 - Rikkei Education</p>
-</main>
 
-<!--Error MSG-->
-<div class="error-msg" th:if="${errors}">
-    <ul>
-        <li th:each="err : ${errors}" th:text="${err.defaultMessage}"></li>
-    </ul>
+        <div class="login-form-container">
+            <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+            <h2 class="login-heading">Sign in</h2>
+            <form th:action="@{/login}" th:object="${login}" method="post">
+                <div class="form-group">
+                    <input type="email" id="email" th:field="*{email}" placeholder="Email">
+                </div>
+                <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error-message"></div>
+
+                <div class="form-group">
+                    <input type="password" id="password" th:field="*{password}" placeholder="Password">
+                </div>
+                <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error-message"></div>
+
+                <div class="register-link">
+                    Don't have an account, <a th:href="@{/register}">register</a>
+                </div>
+                <button type="submit" class="login-btn">Login</button>
+            </form>
+        </div>
+    </div>
 </div>
-<div class="error-msg" th:if="${errorMsg}" th:text="${errorMsg}"></div>
-
 </body>
 </html>

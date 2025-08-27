@@ -1,0 +1,141 @@
+:root {
+    --bg-dark: #0F172A;
+    --text-light: #fff;
+    --text-placeholder: #a9a9a9;
+    --form-bg: #fff;
+    --form-field-bg: #f5f5f5;
+    --button-primary: #3b82f6;
+    --link-color: #ff6347;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+}
+
+.container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* image*/
+.image-wrapper {
+    max-width: 680px;
+    height: 800px;
+    margin-left: 100px;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Right Panel */
+.right-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 80px;
+    margin-right: 240px;
+}
+
+/* text */
+.text-overlay {
+    font-size: 1.5rem;
+    max-width: 400px;
+}
+
+.join-us-heading {
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.description-text {
+    font-size: 1rem;
+    color: var(--text-placeholder);
+    line-height: 1.5;
+}
+
+/* form */
+.login-form-container {
+    padding: 40px;
+    width: 100%;
+    max-width: 400px;
+    background-color: var(--text-light);
+    border-radius: 20px;
+    text-align: left;
+}
+
+.login-heading {
+    font-size: 2rem;
+    font-weight: 500;
+    color: var(--bg-dark);
+    margin-bottom: 25px;
+    text-align: left;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group input{
+    width: 100%;
+    padding: 15px;
+    border: none;
+    background-color: var(--form-field-bg);
+    border-radius: 5px;
+    font-size: 1rem;
+    color: var(--bg-dark);
+}
+
+.form-group input::placeholder {
+    color: var(--text-placeholder);
+}
+
+.form-group input:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--button-primary);
+}
+
+.register-link {
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    color: var(--bg-dark);
+    text-align: center;
+}
+
+.register-link a {
+    color: var(--link-color);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.login-btn {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    background-color: var(--button-primary);
+    color: var(--text-light);
+    font-size: 1.1rem;
+    font-weight: 500;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.login-btn:hover {
+    background-color: #2563eb;
+}
+
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    font-style: italic;
+}

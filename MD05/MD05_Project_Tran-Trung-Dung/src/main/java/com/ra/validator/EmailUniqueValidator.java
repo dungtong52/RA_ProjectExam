@@ -1,5 +1,6 @@
 package com.ra.validator;
 
+import com.ra.model.dto.UserRegisterRequest;
 import com.ra.model.entity.User;
 import com.ra.service.UserService;
 import jakarta.validation.ConstraintValidator;
@@ -7,7 +8,7 @@ import jakarta.validation.ConstraintValidatorContext;
 
 import java.util.Optional;
 
-public class EmailUniqueValidator implements ConstraintValidator<EmailUnique, User> {
+public class EmailUniqueValidator implements ConstraintValidator<EmailUnique, UserRegisterRequest> {
     private final UserService userService;
 
     public EmailUniqueValidator(UserService userService) {
@@ -20,12 +21,16 @@ public class EmailUniqueValidator implements ConstraintValidator<EmailUnique, Us
     }
 
     @Override
-    public boolean isValid(User user, ConstraintValidatorContext context) {
-        if (user.getEmail() == null || user.getEmail().isEmpty()) return true;
+    public boolean isValid(UserRegisterRequest request, ConstraintValidatorContext context) {
+        if (request.getEmail() == null || request.getEmail().isEmpty()) return true;
 
-        Optional<User> existingUser = userService.findUserByEmail(user.getEmail());
-        return existingUser
-                .map(u -> u.getId().equals(user.getId()))
-                .orElse(true);
+        boolean exists = userService.findUserByEmail(request.getEmail()).isPresent();
+        if (exists) {
+            context.disableDefaultConstraintViolation();
+            context.buildConstraintViolationWithTemplate("Email đã tồn tại!")
+                    .addPropertyNode("email")
+                    .addConstraintViolation();
+        }
+        return !exists;
     }
 }

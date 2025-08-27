@@ -4,6 +4,7 @@ package com.ra.service.imp;
 import com.ra.model.dto.UserLoginRequest;
 import com.ra.model.dto.UserRegisterRequest;
 import com.ra.model.dto.UserResponse;
+import com.ra.model.entity.Role;
 import com.ra.model.entity.User;
 import com.ra.model.mapper.UserMapper;
 import com.ra.repo.UserRepo;
@@ -54,15 +55,12 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public Page<User> searchUsers(Long id, String name, String email,
-                                  String sortById, String sortByName,
-                                  int page, int size) {
+    public Page<User> searchUsers(String keyword, Pageable pageable) {
         Specification<User> specification = Specification.allOf(
-                UserSpecification.hasId(id),
-                UserSpecification.hasName(name),
-                UserSpecification.hasEmail(email)
+                UserSpecification.hasKeyword(keyword),
+                UserSpecification.hasRole(Role.STUDENT)
         );
-
+        return userRepo.findAll(specification, pageable);
     }
 
     @Override

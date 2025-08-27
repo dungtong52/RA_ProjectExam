@@ -1,37 +1,66 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" th:href="@{/css/reset.css}">
-    <link rel="stylesheet" th:href="@{/css/authStyle.css}">
+    <link rel="stylesheet" th:href="@{/css/auth/registerStyle.css}">
     <title>Register</title>
 </head>
 <body>
-<main class="container">
-    <img src="" alt="Logo" class="logo">
-    <h3 class="title">Please sign up</h3>
-    <form th:action="@{/register}" th:object="${user}" method="post" class="register-form">
-        <div class="input-div">
-            <input class="email-input" type="email" th:field="*{email}" placeholder="Email address"/>
-            <input class="username-input" type="text" th:field="*{username}" placeholder="Username"/>
-            <input class="password-input" type="password" th:field="*{password}" placeholder="Password"/>
-        </div>
-        <p>
-            Already have an account,
-            <a th:href="@{/login}" class="link">click here</a>
-        </p>
-        <button class="btn" type="submit">Sign up</button>
-    </form>
-    <p class="footer">&copy; 2025 - Rikkei Education</p>
-</main>
+<div class="container">
+    <div class="image-wrapper">
+        <img th:src="@{/images/register-background.png}" alt="background">
+    </div>
 
-<!--Error MSG-->
-<div class="error-msg" th:if="${errors}">
-    <ul>
-        <li th:each="err : ${errors}" th:text="${err.defaultMessage}"></li>
-    </ul>
+    <div class="text-overlay">
+        <h1 class="join-us-heading">Join us today <span class="hand-emoji">👋</span></h1>
+        <p class="description-text">Clarity gives you the blocks and components you need to create a truly
+            professional website.</p>
+    </div>
+
+    <div class="signup-form-container">
+        <h2 class="signup-heading">Sign up</h2>
+        <form th:action="@{/register}" th:object="${user}" method="post">
+            <div class="form-group">
+                <input type="text" id="full-name" th:field="*{fullName}" placeholder="Full Name">
+            </div>
+            <div th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}" class="error-message"></div>
+
+            <div class="form-group">
+                <input type="date" id="dob" th:field="*{dob}">
+            </div>
+            <div th:if="${#fields.hasErrors('dob')}" th:errors="*{dob}" class="error-message"></div>
+
+            <div class="form-group">
+                <input type="email" id="email" th:field="*{email}" placeholder="Email">
+            </div>
+            <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error-message"></div>
+
+            <div class="form-group">
+                <select id="gender" th:field="*{sex}">
+                    <option value="" th:selected>-- Chọn --</option>
+                    <option value="true">Male</option>
+                    <option value="false">Female</option>
+                </select>
+            </div>
+            <div th:if="${#fields.hasErrors('sex')}" th:errors="*{sex}" class="error-message"></div>
+
+            <div class="form-group">
+                <input type="tel" id="phone" th:field="*{phone}" placeholder="Phone">
+            </div>
+            <div th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="error-message"></div>
+
+            <div class="form-group">
+                <input type="password" id="password" th:field="*{password}" placeholder="Password">
+            </div>
+            <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error-message"></div>
+
+            <div class="login-link">
+                Already have an account, <a th:href="@{/login}">login</a>
+            </div>
+            <button type="submit" class="register-btn">Register</button>
+        </form>
+    </div>
 </div>
-<div class="error-msg" th:if="${errorMsg}" th:text="${errorMsg}"></div>
-
 </body>
 </html>

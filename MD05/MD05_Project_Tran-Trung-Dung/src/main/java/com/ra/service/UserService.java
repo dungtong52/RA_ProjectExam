@@ -20,7 +20,7 @@ public interface UserService {
 
     Optional<User> findUserByPhone(String phone);
 
-    Page<User> searchUsers(Long id, String name, String email, String sortById, String sortByName, int page, int size);
+    Page<User> searchUsers(String keyword, Pageable pageable);
 
     User updateStudent(Long id, UserRegisterRequest request);
 
