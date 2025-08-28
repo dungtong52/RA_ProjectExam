@@ -21,4 +21,6 @@ public interface EnrollmentService {
     void denyEnrollment(Long id);
 
     boolean existsByUserIdAndCourse(Long userId, Course course);
+
+    void cancelEnrollment(Long id);
 }

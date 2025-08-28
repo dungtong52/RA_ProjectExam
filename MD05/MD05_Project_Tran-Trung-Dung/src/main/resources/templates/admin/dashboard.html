@@ -7,7 +7,7 @@
     <link rel="stylesheet" th:href="@{/css/admin/adminStyle.css}">
     <link rel="stylesheet" th:href="@{/css/admin/headerStyle.css}">
     <link rel="stylesheet" th:href="@{/css/admin/sidebarStyle.css}">
-    <link rel="stylesheet" th:href="@{/css/admin/listStudentStyle.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/dashboard.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
 </head>
 <body>
@@ -17,6 +17,80 @@
     <aside th:replace="~{admin/component/sidebar :: sidebar-fragment}"></aside>
 
     <main class="main-content">
+        <!-- Thẻ thống kê-->
+        <div class="dashboard-cards">
+            <div class="card">
+                <div class="card-header">
+                    <span>TOTAL STUDENT</span>
+                </div>
+                <div class="card-body">
+                    <span th:text="${statistic.totalStudent}"></span>
+                    <span class="increase">+36%</span>
+                    <span class="arrow-up">↑</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <span>TOTAL COURSE</span>
+                </div>
+                <div class="card-body">
+                    <span th:text="${statistic.totalCourse}"></span>
+                    <span class="increase">+36%</span>
+                    <span class="arrow-up">↑</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <span>TOTAL ENROLLMENT</span>
+                </div>
+                <div class="card-body">
+                    <span th:text="${statistic.totalEnrollment}"></span>
+                    <span class="increase">+36%</span>
+                    <span class="arrow-up">↑</span>
+                </div>
+            </div>
+        </div>
+        <!-- Bảng thống kê -->
+        <div class="table-container">
+            <h2>Student statistics by course</h2>
+            <table>
+                <thead>
+                <tr>
+                    <th>Course ID</th>
+                    <th>Image</th>
+                    <th>Course Name</th>
+                    <th>Duration</th>
+                    <th>Total Student</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="course : ${courses}">
+                    <td th:text="${course.courseId}"></td>
+                    <td><img th:src="@{${course.image}}" alt="Course Image"/></td>
+                    <td th:text="${course.courseName}"></td>
+                    <td th:text="${course.duration}"></td>
+                    <td th:text="${course.studentCount}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- Top 5 -->
+        <div class="top-courses-container">
+            <h2>Top 5 course bestseller</h2>
+            <p>Top 5 courses with the most students</p>
+            <ul>
+                <li th:each="course : ${coursesTop}">
+                    <div class="course-item">
+                        <img th:src="@{${course.image}}" alt="Course Image"/>
+                        <span th:text="${course.courseName}"></span>
+                        <span th:text="${course.studentCount}"></span>
+                        <span>Student</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
 
     </main>
 </div>

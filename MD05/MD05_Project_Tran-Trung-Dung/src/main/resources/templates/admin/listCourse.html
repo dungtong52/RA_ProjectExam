@@ -27,16 +27,16 @@
                 <form th:action="@{/admin/courses}" method="get">
                     <select name="sortParam" id="sort">
                         <option value="id_asc" th:selected="${sort == 'id_asc'}">
-                            Sort By ID tăng dần
+                            Sort By ID ASC
                         </option>
                         <option value="id_desc" th:selected="${sort == 'id_desc'}">
-                            Sort By ID giảm dần
+                            Sort By ID DESC
                         </option>
                         <option value="name_asc" th:selected="${sort == 'name_asc'}">
-                            Sort By Name tăng dần
+                            Sort By Name ASC
                         </option>
                         <option value="name_desc" th:selected="${sort == 'name_desc'}">
-                            Sort By Name giảm dần
+                            Sort By Name DESC
                         </option>
                     </select>
 
@@ -72,9 +72,12 @@
                     </td>
                     <td th:text="${#temporals.format(course.createAt, 'dd/MM/yyyy')}"></td>
                     <td class="action-buttons">
-                        <a class="btn-edit" th:href="@{/admin/course/edit/{id}(id=${course.id}, page=${currentPage})}"><i class="fa-solid fa-pen"></i></a>
-                        <a class="btn-delete" th:href="@{/admin/course/delete/{id}(id=${course.id}, page=${currentPage})}"
-                        onclick="return confirm('Bạn có chắc chắn muốn xóa khóa học này?')"
+                        <a class="btn-edit"
+                           th:href="@{/admin/course/edit/{id}(id=${course.id}, page=${currentPage})}"><i
+                                class="fa-solid fa-pen"></i></a>
+                        <a class="btn-delete"
+                           th:href="@{/admin/course/delete/{id}(id=${course.id}, page=${currentPage})}"
+                           onclick="return confirm('Bạn có chắc chắn muốn xóa khóa học này?')"
                         ><i class="fa-solid fa-trash"></i></a>
                     </td>
                 </tr>

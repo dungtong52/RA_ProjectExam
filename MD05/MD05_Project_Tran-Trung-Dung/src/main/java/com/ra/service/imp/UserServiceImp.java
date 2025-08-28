@@ -40,7 +40,8 @@ public class UserServiceImp implements UserService {
     @Override
     public Optional<UserResponse> login(UserLoginRequest request) {
         return userRepo.findByEmail(request.getEmail())
-                .filter(user -> BCrypt.checkpw(request.getPassword(), user.getPassword()))
+                .filter(user ->
+                        BCrypt.checkpw(request.getPassword(), user.getPassword()) && user.getStatus() == true)
                 .map(userMapper::toResponse);
     }
 
@@ -72,22 +73,11 @@ public class UserServiceImp implements UserService {
     public User updateStudent(Long id, UserRegisterRequest request) {
         return userRepo.findById(id)
                 .map(user -> {
-                    user.setName(request.getFullName());
+                    user.setName(request.getName());
                     user.setDob(request.getDob());
                     user.setEmail(request.getEmail());
                     user.setSex(request.getSex());
                     user.setPhone(request.getPhone());
-                    user.setRole(request.getRole());
-                    return userRepo.save(user);
-                })
-                .orElseThrow(() -> new RuntimeException("Không tìm thấy người dùng"));
-    }
-
-    @Override
-    public User changePassword(Long id, String newPassword) {
-        return userRepo.findById(id)
-                .map(user -> {
-                    user.setPassword(BCrypt.hashpw(newPassword, BCrypt.gensalt(12)));
                     return userRepo.save(user);
                 })
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy người dùng"));
@@ -102,12 +92,22 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
+    public User changePassword(Long id, String newPassword) {
+        return userRepo.findById(id)
+                .map(user -> {
+                    user.setPassword(BCrypt.hashpw(newPassword, BCrypt.gensalt(12)));
+                    return userRepo.save(user);
+                })
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy người dùng"));
+    }
+
+    @Override
     public boolean checkConfirmPassword(String password, String confirmPassword) {
         return password.equals(confirmPassword);
     }
 
     @Override
     public boolean checkOldPassword(String password, String passwordInput) {
-        return password.equals(passwordInput);
+        return BCrypt.checkpw(passwordInput, password);
     }
 }

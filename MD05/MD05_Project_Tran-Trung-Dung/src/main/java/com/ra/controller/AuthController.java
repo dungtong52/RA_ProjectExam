@@ -67,7 +67,6 @@ public class AuthController {
                     if (response.getRole() == Role.ADMIN) {
                         return "redirect:/admin";
                     } else return "redirect:/user";
-
                 })
                 .orElseGet(() -> {
                     model.addAttribute("errorMsg", "Sai tài khoản hoặc mật khẩu");

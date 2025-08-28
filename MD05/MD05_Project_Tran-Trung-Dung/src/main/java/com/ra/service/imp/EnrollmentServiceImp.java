@@ -61,4 +61,12 @@ public class EnrollmentServiceImp implements EnrollmentService {
     public boolean existsByUserIdAndCourse(Long userId, Course course) {
         return enrollmentRepo.existsByUserIdAndCourse(userId, course);
     }
+
+    @Override
+    public void cancelEnrollment(Long id) {
+        Enrollment enrollment = enrollmentRepo.findByStatusAndId(EnrollmentStatus.WAITING, id)
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy đơn đăng ký khóa học"));
+        enrollment.setStatus(EnrollmentStatus.CANCEL);
+        enrollmentRepo.save(enrollment);
+    }
 }

@@ -18,12 +18,12 @@
     margin-bottom: 2rem;
 }
 
-.search-input {
-    width: 300px;
-    padding: 0.75rem 1rem;
-    border: 1px solid #ccc;
+.search-container select,
+.search-container input {
+    padding: 0.5rem;
+    border: 1px solid var(--border-color);
     border-radius: 5px;
-    font-size: 1rem;
+    font-size: 0.9rem;
 }
 
 .search-button {
@@ -43,84 +43,56 @@
     background-color: var(--primary-color);
 }
 
-.course-list {
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    gap: 2rem;
-}
-
-.course-card {
+/* Table */
+.enrollment-table-container {
     background-color: var(--card-background);
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    width: 250px;
-    display: flex;
-    flex-direction: column;
-    text-align: left;
 }
 
-.course-thumbnail img {
+.enrollment-table {
     width: 100%;
-    height: auto;
-    display: block;
+    border-collapse: collapse;
 }
 
-.course-info {
-    padding: 1rem;
-    flex-grow: 1;
-}
-
-.course-info h3 {
-    font-size: 1.1rem;
-    color: #dc3545;
-}
-
-.explore-link {
-    color: green;
-    font-size: 0.9rem;
-    font-style: italic;
-    margin-top: 5px;
-}
-
-.course-details {
-    font-size: 0.9rem;
+.enrollment-table th,
+.enrollment-table td {
     color: var(--text-color);
-    margin-top: 10px;
-    line-height: 1.5;
-}
-
-.course-actions {
     padding: 1rem;
-    text-align: center;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
 }
 
-.btn-registry, .btn-registered {
-    display: inline-block;
-    width: 100%;
-    padding: 0.75rem;
-    text-decoration: none;
+.enrollment-table th {
     font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.enrollment-table tr:last-child td {
+    border-bottom: none;
+}
+
+.enrollment-table td {
+    font-size: 0.9rem;
+}
+
+.action-buttons a {
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.action-buttons .btn-cancel {
+    background-color: #ffda7a;
+    border: 1px solid #7c5b00;
+    color: #7c5b00;
+    text-decoration: none;
+    padding: 6px;
     border-radius: 5px;
-    text-align: center;
-    cursor: pointer;
-    transition: background-color 0.2s;
 }
 
-.btn-registry {
-    background-color: #28a745;
-    color: var(--card-background);
-}
-
-.btn-registry:hover {
-    background-color: #1a6c2a;
-}
-
-.btn-registered {
-    background-color: #6c757d;
-    color: var(--card-background);
-    pointer-events: none;
+.action-buttons .btn-cancel:hover {
+    background-color: #e0a800;
 }
 
 /* Pagination */

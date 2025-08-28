@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/user/headerStyle.css}">
+    <link rel="stylesheet" th:href="@{/css/user/profileStyle.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
+</head>
+<body>
+<header th:replace="~{user/component/header :: header-fragment}"></header>
+
+<main class="main-content">
+    <div class="header-bar">
+        <h1 class="page-title">My Profile</h1>
+        <a th:href="@{/user/profile/changePassword}" class="change-password-button">Change Password</a>
+    </div>
+
+    <div class="info-form">
+        <h3 class="form-title">Change Information</h3>
+        <form th:action="@{/user/profile}" th:object="${user}" method="post">
+            <div class="form-group">
+                <label for="name">Name <span class="required">*</span></label>
+                <input type="text" id="name" th:field="*{name}">
+            </div>
+            <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error-message"></div>
+
+            <div class="form-group">
+                <label for="phone">Phone <span class="required">*</span></label>
+                <input type="tel" id="phone" th:field="*{phone}">
+            </div>
+            <div th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="error-message"></div>
+
+            <div class="form-group">
+                <label for="email">Email <span class="required">*</span></label>
+                <input type="email" id="email" th:field="*{email}">
+            </div>
+            <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error-message"></div>
+
+            <div class="form-group">
+                <label for="gender">Gender <span class="required">*</span></label>
+                <select id="gender" th:field="*{sex}">
+                    <option value="" th:selected>-- Chọn --</option>
+                    <option value="true">Male</option>
+                    <option value="false">Female</option>
+                </select>
+            </div>
+            <div th:if="${#fields.hasErrors('sex')}" th:errors="*{sex}" class="error-message"></div>
+
+            <div class="form-group">
+                <label for="dob">Date of Birth <span class="required">*</span></label>
+                <input type="date" id="dob" th:field="*{dob}">
+            </div>
+            <div th:if="${#fields.hasErrors('dob')}" th:errors="*{dob}" class="error-message"></div>
+
+            <button type="submit" class="btn">Save</button>
+        </form>
+    </div>
+
+</main>
+</body>
+</html>

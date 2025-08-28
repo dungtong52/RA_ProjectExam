@@ -2,6 +2,7 @@ package com.ra.model.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 
@@ -26,6 +27,7 @@ public class Enrollment {
     private Course course;
 
     @Column(name = "registered_at")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime registeredAt = LocalDateTime.now();
 
     @Enumerated(EnumType.STRING)

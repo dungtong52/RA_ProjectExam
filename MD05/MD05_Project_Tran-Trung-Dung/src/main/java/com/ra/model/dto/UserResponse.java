@@ -2,6 +2,7 @@ package com.ra.model.dto;
 
 import com.ra.model.entity.Role;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
@@ -12,7 +13,8 @@ import java.time.LocalDate;
 @Builder
 public class UserResponse {
     private Long id;
-    private String fullName;
+    private String name;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dob;
     private String email;
     private Boolean sex;

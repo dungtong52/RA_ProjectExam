@@ -2,6 +2,7 @@ package com.ra.model.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
@@ -35,13 +36,22 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "create_at", columnDefinition = "DATE DEFAULT CURRENT_DATE")
-    private LocalDate createAt;
+    @Builder.Default
+    @Column(name = "create_at", columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP")
+    private LocalDate createAt = LocalDate.now();
 
+    @Builder.Default
     @Enumerated(EnumType.STRING)
     @Column(name = "role", columnDefinition = "VARCHAR(20) DEFAULT 'STUDENT'")
-    private Role role;
+    private Role role = Role.STUDENT;
 
+    @Builder.Default
     @Column(name = "status", columnDefinition = "BOOLEAN DEFAULT TRUE")
-    private Boolean status;
+    private Boolean status = true;
+
+    protected void onCreate() {
+        if (createAt == null) createAt = LocalDate.now();
+        if (role == null) role = Role.STUDENT;
+        if (status == null) status = true;
+    }
 }

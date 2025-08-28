@@ -1,13 +1,12 @@
 package com.ra.controller;
 
+import com.ra.model.dto.CourseStudentStatistic;
+import com.ra.model.dto.StatisticResponse;
 import com.ra.model.entity.Course;
 import com.ra.model.entity.Enrollment;
 import com.ra.model.entity.EnrollmentStatus;
 import com.ra.model.entity.User;
-import com.ra.service.CloudinaryService;
-import com.ra.service.CourseService;
-import com.ra.service.EnrollmentService;
-import com.ra.service.UserService;
+import com.ra.service.*;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
@@ -28,20 +28,30 @@ public class AdminController {
     private final CourseService courseService;
     private final EnrollmentService enrollmentService;
     private final CloudinaryService cloudinaryService;
+    private final StatisticService statisticService;
 
-    public AdminController(UserService userService, CourseService courseService, EnrollmentService enrollmentService, CloudinaryService cloudinaryService) {
+    public AdminController(UserService userService, CourseService courseService, EnrollmentService enrollmentService, CloudinaryService cloudinaryService, StatisticService statisticService) {
         this.userService = userService;
         this.courseService = courseService;
         this.enrollmentService = enrollmentService;
         this.cloudinaryService = cloudinaryService;
+        this.statisticService = statisticService;
     }
 
     /*
-     * DASHBOARD
+     * DASHBOARD (Statistic)
      */
-//    @GetMapping("/dashboard")
-//    public String dashboard()
+    @GetMapping
+    public String dashboard(Model model) {
+        StatisticResponse statisticResponse = statisticService.getStatistic();
+        List<CourseStudentStatistic> courseStudentStatistics = statisticService.getListCourseAndTotalStudent();
+        List<CourseStudentStatistic> top5Course = courseStudentStatistics.stream().limit(5).toList();
 
+        model.addAttribute("statistic", statisticResponse);
+        model.addAttribute("courses", courseStudentStatistics);
+        model.addAttribute("coursesTop", top5Course);
+        return "admin/dashboard";
+    }
 
     /*
      * STUDENT MANAGEMENT

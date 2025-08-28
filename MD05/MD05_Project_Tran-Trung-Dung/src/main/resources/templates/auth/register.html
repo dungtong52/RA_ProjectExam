@@ -22,9 +22,9 @@
         <h2 class="signup-heading">Sign up</h2>
         <form th:action="@{/register}" th:object="${user}" method="post">
             <div class="form-group">
-                <input type="text" id="full-name" th:field="*{fullName}" placeholder="Full Name">
+                <input type="text" id="name" th:field="*{name}" placeholder="Full Name">
             </div>
-            <div th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}" class="error-message"></div>
+            <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error-message"></div>
 
             <div class="form-group">
                 <input type="date" id="dob" th:field="*{dob}">

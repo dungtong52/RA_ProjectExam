@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
@@ -21,7 +22,7 @@ import java.time.LocalDate;
 public class UserRegisterRequest {
     @NotBlank(message = "Họ tên không được để trống")
     @Size(max = 100, message = "Họ tên phải có độ dài dưới 100 ký tự")
-    private String fullName;
+    private String name;
 
     @NotNull(message = "Ngày sinh không được để trống")
     private LocalDate dob;
@@ -41,6 +42,4 @@ public class UserRegisterRequest {
 
     @NotBlank(message = "Mật khẩu không được để trống")
     private String password;
-
-    private Role role;
 }

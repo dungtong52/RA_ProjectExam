@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
@@ -37,6 +38,7 @@ public class Course {
     private String instructor;
 
     @Column(name = "create_at")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate createAt = LocalDate.now();
 
     @Column(name = "image", length = 500)

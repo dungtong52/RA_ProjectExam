@@ -23,16 +23,16 @@
                 <form th:action="@{/admin/users}" method="get">
                     <select name="sortParam" id="sort">
                         <option value="id_asc" th:selected="${sort == 'id_asc'}">
-                            Sort By ID tăng dần
+                            Sort By ID ASC
                         </option>
                         <option value="id_desc" th:selected="${sort == 'id_desc'}">
-                            Sort By ID giảm dần
+                            Sort By ID DESC
                         </option>
                         <option value="name_asc" th:selected="${sort == 'name_asc'}">
-                            Sort By Name tăng dần
+                            Sort By Name ASC
                         </option>
                         <option value="name_desc" th:selected="${sort == 'name_desc'}">
-                            Sort By Name giảm dần
+                            Sort By Name DESC
                         </option>
                     </select>
 

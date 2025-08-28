@@ -1,5 +1,6 @@
 package com.ra.repo;
 
+import com.ra.model.entity.Role;
 import com.ra.model.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,4 +15,6 @@ public interface UserRepo extends JpaRepository<User, Long>, JpaSpecificationExe
     Optional<User> findByEmail(String email);
 
     Optional<User> findByPhone(String phone);
+
+    Long countByRole(Role role);
 }

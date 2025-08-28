@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>History</title>
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/user/headerStyle.css}">
+    <link rel="stylesheet" th:href="@{/css/user/historyStyle.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
+</head>
+<body>
+<header th:replace="~{user/component/header :: header-fragment}"></header>
+
+<main class="main-content">
+    <h1 class="page-title">History Enrollment</h1>
+
+    <div class="search-container">
+        <form th:action="@{/user}" method="get">
+            <select name="sortParam" id="sort">
+                <option value="status_asc" th:selected="${sort == 'status_asc'}">
+                    Sort By Status ASC
+                </option>
+                <option value="status_desc" th:selected="${sort == 'status_desc'}">
+                    Sort By Status DESC
+                </option>
+            </select>
+            <input type="text" class="search-input" name="keyword" placeholder="search enrollment by name"
+                   th:value="${keyword}">
+            <button type="submit" class="search-button">Search</button>
+        </form>
+    </div>
+
+    <div class="enrollment-table-container">
+        <table class="enrollment-table">
+            <thead>
+            <tr>
+                <th>Course ID</th>
+                <th>Course Name</th>
+                <th>Duration (Hour)</th>
+                <th>Instructor</th>
+                <th>Image</th>
+                <th>Created Date</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="courseDTO : ${courseDTOs}">
+                <td th:text="${courseDTO.course.id}"></td>
+                <td th:text="${courseDTO.course.name}"></td>
+                <td th:text="${courseDTO.course.duration}"></td>
+                <td th:text="${courseDTO.course.instructor}"></td>
+                <td>
+                    <img th:src="${courseDTO.course.image}" width="60" height="60" th:alt="${courseDTO.course.name}">
+                </td>
+                <td th:text="${#temporals.format(courseDTO.course.createAt, 'dd/MM/yyyy')}"></td>
+                <td th:text="${courseDTO.course.status}"></td>
+                <td class="action-buttons">
+                    <a class="btn-cancel"
+                       th:href="@{/user/cancelEnrollment/{id}(id=${courseDTO.course.id})}"
+                       onclick="return confirm('Bạn có chắc chắn muốn hủy khóa học này?')"
+                    >Cancel</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="pagination">
+        <a th:if="${currentPage > 0}"
+           th:href="@{/user(page=${currentPage - 1}, size=${pageSize}, keyword=${keyword})}"
+           class="arrow">&larr;</a>
+
+        <a th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+           th:href="@{/user(page=${i}, size=${pageSize}, keyword=${keyword})}"
+           th:text="${i+1}"
+           th:classappend="${i == currentPage} ? 'active pag-btn' : 'pag-btn'">
+        </a>
+
+        <a th:if="${currentPage < totalPages - 1}"
+           th:href="@{/user(page=${currentPage + 1}, size=${pageSize}, keyword=${keyword})}"
+           class="arrow">&rarr;</a>
+    </div>
+</main>
+</body>
+</html>

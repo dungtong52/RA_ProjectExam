@@ -1,13 +1,12 @@
 1. In success
-2. Làm thêm phân quyền thủ công
+
+2. Làm thêm phân quyền thủ công (lam 1 class @Component autowired session, kiem tra dang nhap admin)
+
 3. Dang khong bao loi validate unique
 There was an unexpected error (type=Internal Server Error, status=500).
 could not execute statement [Duplicate entry '07040609748' for key 'users.UKdu5v5sr43g5bfnji4vb8hg5s3'] [insert into users (create_at,dob,email,name,password,phone,role,sex,status) values (?,?,?,?,?,?,?,?,?)]; SQL [insert into users (create_at,dob,email,name,password,phone,role,sex,status) values (?,?,?,?,?,?,?,?,?)]; constraint [users.UKdu5v5sr43g5bfnji4vb8hg5s3]
 org.springframework.dao.DataIntegrityViolationException: could not execute statement [Duplicate entry '07040609748' for key 'users.UKdu5v5sr43g5bfnji4vb8hg5s3'] [insert into users (create_at,dob,email,name,password,phone,role,sex,status) values (?,?,?,?,?,?,?,?,?)]; SQL [insert into users (create_at,dob,email,name,password,phone,role,sex,status) values (?,?,?,?,?,?,?,?,?)]; constraint [users.UKdu5v5sr43g5bfnji4vb8hg5s3]
 
-4. Mac du co default nhung khi them account thi bi null???
-da sua, can test lai, ket hop cùng kiem tra pass hash luon
+4. Hien pass cu tren chrome
 
-5. History cho user
-
-6. thay doi mat khau cho user
+5. Chinh lai css thong ke cho chuan
