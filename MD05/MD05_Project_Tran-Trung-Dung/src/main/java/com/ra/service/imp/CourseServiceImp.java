@@ -31,8 +31,6 @@ public class CourseServiceImp implements CourseService {
                     c.setName(course.getName());
                     c.setDuration(course.getDuration());
                     c.setInstructor(course.getInstructor());
-                    c.setCreateAt(course.getCreateAt());
-                    c.setImage(course.getImage());
                     return courseRepo.save(c);
                 })
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy khóa học"));

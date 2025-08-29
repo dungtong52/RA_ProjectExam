@@ -2,10 +2,7 @@ package com.ra.controller;
 
 import com.ra.model.dto.CourseStudentStatistic;
 import com.ra.model.dto.StatisticResponse;
-import com.ra.model.entity.Course;
-import com.ra.model.entity.Enrollment;
-import com.ra.model.entity.EnrollmentStatus;
-import com.ra.model.entity.User;
+import com.ra.model.entity.*;
 import com.ra.service.*;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
@@ -80,11 +77,13 @@ public class AdminController {
     }
 
     @GetMapping("/user/{id}")
-    public String changeStatusAccount(@PathVariable("id") Long id,
-                                      @RequestParam(defaultValue = "0") int page,
-                                      RedirectAttributes redirectAttributes) {
-        userService.changeStatusStudent(id);
-        redirectAttributes.addFlashAttribute("success", "Thay đổi trạng thái tài khoản thành công.");
+    public String lockAccount(@PathVariable("id") Long studentId,
+                              @RequestParam(defaultValue = "0") int page,
+                              RedirectAttributes redirectAttributes) {
+        enrollmentService.cancelEnrollmentByStudentId(studentId);
+        userService.lockStudent(studentId);
+        redirectAttributes.addFlashAttribute("success", "Khóa tài khoản thành công.\n" +
+                "Đã hủy toàn bộ đơn đăng ký đang chờ.");
         return "redirect:/admin/users?page=" + page;
     }
 
@@ -130,8 +129,10 @@ public class AdminController {
             return "admin/addCourse";
         }
         try {
-            String imageUrl = cloudinaryService.uploadFile(uploadFile);
-            course.setImage(imageUrl);
+            if (!uploadFile.isEmpty()) {
+                String imageUrl = cloudinaryService.uploadFile(uploadFile);
+                course.setImage(imageUrl);
+            }
         } catch (IOException e) {
             model.addAttribute("error", "Có lỗi khi upload file");
             return "admin/addCourse";
@@ -162,15 +163,20 @@ public class AdminController {
             return "admin/editCourse";
         }
         try {
-            String imageUrl = cloudinaryService.uploadFile(uploadFile);
-            course.setImage(imageUrl);
+            Course existingCourse = courseService.findCourseById(course.getId())
+                    .orElseThrow(() -> new RuntimeException("Không tìm thấy khóa học"));
+
+            if (!uploadFile.isEmpty()) {
+                String imageUrl = cloudinaryService.uploadFile(uploadFile);
+                existingCourse.setImage(imageUrl);
+            }
+            Course updateCourse = courseService.updateCourse(course.getId(), course);
+            redirectAttributes.addFlashAttribute("success", "Cập nhật khóa học thành công");
+            return "redirect:/admin/courses?page=" + page;
         } catch (IOException e) {
             model.addAttribute("error", "Có lỗi khi upload file");
             return "admin/editCourse";
         }
-        Course updateCourse = courseService.updateCourse(course.getId(), course);
-        redirectAttributes.addFlashAttribute("success", "Cập nhật khóa học thành công");
-        return "redirect:/admin/courses?page=" + page;
     }
 
     @GetMapping("/course/delete/{id}")
@@ -221,7 +227,16 @@ public class AdminController {
     @GetMapping("/enrollment/confirm/{id}")
     public String approveEnrollment(@PathVariable("id") Long id,
                                     @RequestParam(defaultValue = "0") int page,
+                                    Model model,
                                     RedirectAttributes redirectAttributes) {
+        Enrollment enrollment = enrollmentService.findById(id)
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy đơn đăng ký khóa học"));
+        User student = userService.findUserById(enrollment.getUser().getId())
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy sinh viên"));
+        if(!student.getStatus()){
+            model.addAttribute("error", "Tài khoản sinh viên đang bị khóa, không thể duyệt đơn đăng ký này.");
+            return "admin/listEnrollment";
+        }
         enrollmentService.approveEnrollment(id);
         redirectAttributes.addFlashAttribute("success", "Duyệt đơn đăng ký thành công");
         return "redirect:/admin/enrollments?page=" + page;

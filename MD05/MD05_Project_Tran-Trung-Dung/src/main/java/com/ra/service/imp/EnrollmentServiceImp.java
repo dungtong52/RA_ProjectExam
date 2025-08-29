@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -68,5 +69,14 @@ public class EnrollmentServiceImp implements EnrollmentService {
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy đơn đăng ký khóa học"));
         enrollment.setStatus(EnrollmentStatus.CANCEL);
         enrollmentRepo.save(enrollment);
+    }
+
+    @Override
+    public void cancelEnrollmentByStudentId(Long studentId) {
+        enrollmentRepo.findByStatusAndUser_Id(EnrollmentStatus.WAITING, studentId)
+                .forEach(enrollment -> {
+                    enrollment.setStatus(EnrollmentStatus.CANCEL);
+                    enrollmentRepo.save(enrollment);
+                });
     }
 }

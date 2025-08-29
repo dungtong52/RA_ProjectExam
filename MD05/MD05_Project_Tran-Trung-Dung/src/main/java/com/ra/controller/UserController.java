@@ -46,9 +46,6 @@ public class UserController {
                                 HttpSession session,
                                 Model model) {
         UserResponse currentUser = (UserResponse) session.getAttribute("currentUser");
-        if (currentUser == null) {
-            return "redirect:/login";
-        }
         Page<Course> coursePage = courseService.searchCourse(keyword, PageRequest.of(page, size));
 
         List<CourseDTO> courseDTOList = coursePage.getContent().stream()
@@ -70,9 +67,6 @@ public class UserController {
     public String register(@RequestParam("courseId") Long courseId,
                            HttpSession session) {
         UserResponse currentUser = (UserResponse) session.getAttribute("currentUser");
-        if (currentUser == null) {
-            return "redirect:/login";
-        }
         Course course = courseService.findCourseById(courseId)
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy khóa học"));
 
@@ -95,9 +89,6 @@ public class UserController {
     @GetMapping("/profile")
     public String showEditForm(Model model, HttpSession session) {
         UserResponse currentUser = (UserResponse) session.getAttribute("currentUser");
-        if (currentUser == null) {
-            return "redirect:/login";
-        }
         model.addAttribute("user", currentUser);
         return "user/profile";
     }
@@ -111,8 +102,10 @@ public class UserController {
             return "user/profile";
         }
         UserResponse currentUser = (UserResponse) session.getAttribute("currentUser");
-        if (currentUser == null) {
-            return "redirect:/login";
+        if (userService.findUserByEmail(request.getEmail()).isPresent()) {
+            model.addAttribute("user", request);
+            model.addAttribute("error", "Email đã tồn tại!");
+            return "user/profile";
         }
         User updatedUser = userService.updateStudent(currentUser.getId(), request);
         session.setAttribute("currentUser", updatedUser);
@@ -124,9 +117,7 @@ public class UserController {
     @GetMapping("/profile/changePassword")
     public String showChangePasswordForm(Model model, HttpSession session) {
         UserResponse currentUser = (UserResponse) session.getAttribute("currentUser");
-        if (currentUser == null) {
-            return "redirect:/login";
-        }
+
         User user = userService.findUserById(currentUser.getId())
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy người dùng"));
 
@@ -142,9 +133,7 @@ public class UserController {
             return "user/changePassword";
         }
         UserResponse currentUser = (UserResponse) session.getAttribute("currentUser");
-        if (currentUser == null) {
-            return "redirect:/login";
-        }
+
         User user = userService.findUserById(currentUser.getId())
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy người dùng"));
 
@@ -172,9 +161,6 @@ public class UserController {
                               HttpSession session,
                               Model model) {
         UserResponse currentUser = (UserResponse) session.getAttribute("currentUser");
-        if (currentUser == null) {
-            return "redirect:/login";
-        }
 
         String[] sortPart = sortParam.split("_");
         String sortBy = sortPart[0];

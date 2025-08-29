@@ -7,6 +7,7 @@ import com.ra.model.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface EnrollmentService {
@@ -23,4 +24,6 @@ public interface EnrollmentService {
     boolean existsByUserIdAndCourse(Long userId, Course course);
 
     void cancelEnrollment(Long id);
+
+    void cancelEnrollmentByStudentId(Long studentId);
 }

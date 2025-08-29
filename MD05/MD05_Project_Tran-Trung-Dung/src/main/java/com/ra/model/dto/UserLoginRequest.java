@@ -1,6 +1,5 @@
 package com.ra.model.dto;
 
-import com.ra.validator.EmailUnique;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;

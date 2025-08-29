@@ -38,14 +38,6 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public Optional<UserResponse> login(UserLoginRequest request) {
-        return userRepo.findByEmail(request.getEmail())
-                .filter(user ->
-                        BCrypt.checkpw(request.getPassword(), user.getPassword()) && user.getStatus() == true)
-                .map(userMapper::toResponse);
-    }
-
-    @Override
     public Optional<User> findUserByEmail(String email) {
         return userRepo.findByEmail(email);
     }
@@ -84,7 +76,7 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public void changeStatusStudent(Long id) {
+    public void lockStudent(Long id) {
         User user = userRepo.findById(id)
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy người dùng"));
         user.setStatus(!user.getStatus());

@@ -30,10 +30,13 @@ header {
     gap: 30px;
 }
 
-.user-info i {
-    font-size: 1rem;
+.user-info div {
     cursor: pointer;
     color: var(--background-color-btn);
+}
+
+.user-info div:hover {
+    color: #ff6347;
 }
 
 .user-info img {
@@ -46,16 +49,12 @@ header {
 .user-info a {
     display: flex;
     align-items: center;
-    color: var(--text-color);
     text-decoration: none;
     transition: background-color 0.2s;
+    color: var(--background-color-btn);
+    margin-left: 5px;
 }
 
 .user-info a:hover {
     color: #ff6347;
-}
-
-.logout-link{
-    display: flex;
-    gap: 5px;
 }

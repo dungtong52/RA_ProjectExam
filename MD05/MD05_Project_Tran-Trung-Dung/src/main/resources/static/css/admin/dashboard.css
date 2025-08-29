@@ -45,12 +45,20 @@
     font-weight: bold;
 }
 
+.course-statistic {
+    display: flex;
+    gap: 20px;
+}
+
 /* Table */
 .table-container {
     background-color: var(--card-background);
-    padding: 20px;
+    padding: 20px 30px;
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    flex: 2;
+    height: 60vh;
+    overflow-y: auto;
 }
 
 .table-container h2 {
@@ -90,9 +98,10 @@ tbody img {
 /* Top 5 */
 .top-courses-container {
     background-color: var(--card-background);
-    padding: 20px;
+    padding: 20px 30px;
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    flex: 1;
 }
 
 .top-courses-container h2 {
@@ -103,7 +112,7 @@ tbody img {
 .top-courses-container p {
     font-size: 14px;
     color: var(--light-text-color);
-    margin-top: -5px;
+    margin-top: 10px;
 }
 
 .top-courses-container ul {
@@ -117,7 +126,7 @@ tbody img {
     align-items: center;
     padding: 10px 0;
     font-size: 14px;
-    color: var(--light-text-color);
+    color: var(--text-color);
     border-bottom: 1px solid #f4f4f4;
 }
 

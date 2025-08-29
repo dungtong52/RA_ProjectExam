@@ -7,6 +7,10 @@
     <title>Register</title>
 </head>
 <body>
+<!--Success & Error-->
+<div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+<div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+
 <div class="container">
     <div class="image-wrapper">
         <img th:src="@{/images/register-background.png}" alt="background">

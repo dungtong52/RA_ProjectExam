@@ -8,10 +8,14 @@
     <link rel="stylesheet" th:href="@{/css/admin/headerStyle.css}">
     <link rel="stylesheet" th:href="@{/css/admin/sidebarStyle.css}">
     <link rel="stylesheet" th:href="@{/css/admin/listEnrollmentStyle.css}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL@24,200,0&display=block" rel="stylesheet">
 </head>
 <body>
 <header th:replace="~{admin/component/header :: header-fragment}"></header>
+
+<!--Success & Error-->
+<div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+<div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
 
 <div class="main-container">
     <aside th:replace="~{admin/component/sidebar :: sidebar-fragment}"></aside>
@@ -70,7 +74,7 @@
                 </thead>
                 <tbody>
                 <tr th:each="enrollment : ${enrollments}">
-                    <td th:text="${enrollment.id}"></td>
+                    <td th:text="'E0' + ${enrollment.id}"></td>
                     <td th:text="${enrollment.user.name}"></td>
                     <td th:text="${enrollment.course.name}"></td>
                     <td th:text="${#temporals.format(enrollment.registeredAt, 'dd/MM/yyyy')}"></td>

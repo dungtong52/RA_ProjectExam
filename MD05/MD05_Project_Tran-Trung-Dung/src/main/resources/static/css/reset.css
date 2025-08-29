@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wdth,wght@0,75..100,100..900;1,75..100,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
+
 *,
 *::after,
 *::before {
@@ -26,3 +27,54 @@ body {
     display: flex;
     flex-direction: column;
 }
+
+
+/* Success & Error */
+.alert {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 300px;
+    padding: 15px 20px;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    z-index: 9999;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    transform: translateY(-20px);
+    animation: slideInOut 4s forwards;
+}
+
+.alert-success {
+    background-color: #d1fae5;
+    color: #065f46;
+    border: 1px solid #10b981;
+}
+
+.alert-danger {
+    background-color: #fee2e2;
+    color: #b91c1c;
+    border: 1px solid #ef4444;
+}
+
+@keyframes slideInOut {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    10% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    80% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}
+

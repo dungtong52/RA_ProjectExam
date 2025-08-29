@@ -8,10 +8,14 @@
     <link rel="stylesheet" th:href="@{/css/admin/headerStyle.css}">
     <link rel="stylesheet" th:href="@{/css/admin/sidebarStyle.css}">
     <link rel="stylesheet" th:href="@{/css/admin/listCourseStyle.css}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL@24,200,0&display=block" rel="stylesheet">
 </head>
 <body>
 <header th:replace="~{admin/component/header :: header-fragment}"></header>
+
+<!--Success & Error-->
+<div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+<div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
 
 <div class="main-container">
     <aside th:replace="~{admin/component/sidebar :: sidebar-fragment}"></aside>
@@ -63,7 +67,7 @@
                 </thead>
                 <tbody>
                 <tr th:each="course : ${courses}">
-                    <td th:text="${course.id}"></td>
+                    <td th:text="'C0' + ${course.id}"></td>
                     <td th:text="${course.name}"></td>
                     <td th:text="${course.duration}"></td>
                     <td th:text="${course.instructor}"></td>
@@ -73,12 +77,12 @@
                     <td th:text="${#temporals.format(course.createAt, 'dd/MM/yyyy')}"></td>
                     <td class="action-buttons">
                         <a class="btn-edit"
-                           th:href="@{/admin/course/edit/{id}(id=${course.id}, page=${currentPage})}"><i
-                                class="fa-solid fa-pen"></i></a>
+                           th:href="@{/admin/course/edit/{id}(id=${course.id}, page=${currentPage})}">
+                            <span class="material-symbols-outlined">edit</span></a>
                         <a class="btn-delete"
                            th:href="@{/admin/course/delete/{id}(id=${course.id}, page=${currentPage})}"
                            onclick="return confirm('Bạn có chắc chắn muốn xóa khóa học này?')"
-                        ><i class="fa-solid fa-trash"></i></a>
+                        ><span class="material-symbols-outlined">delete</span></a>
                     </td>
                 </tr>
                 </tbody>

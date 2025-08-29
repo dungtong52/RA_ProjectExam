@@ -3,24 +3,26 @@
 <header th:fragment="header-fragment">
     <div class="header-container">
         <div class="logo">
-            <a th:href="@{/dashboard}">
+            <a th:href="@{/admin}">
                 <img th:src="@{/images/logo.png}" alt="Rikkei Logo"/>
             </a>
         </div>
         <div class="user-info">
-             <span class="mail-icon">
-                <i class="fa-solid fa-envelope"></i>
-            </span>
-            <span class="notification-icon">
-                <i class="fa-solid fa-bell"></i>
-            </span>
-            <span class="profile-icon">
+             <div class="mail-icon">
+                <span class="material-symbols-outlined">mail</span>
+            </div>
+            <div class="notification-icon">
+                <span class="material-symbols-outlined">notifications</span>
+            </div>
+            <div class="profile-icon">
                 <img th:src="@{/images/profile.png}" alt="Profile"/>
-            </span>
-            <span class="logout-link">
-                <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                <a th:href="@{/logout}">Logout</a>
-            </span>
+            </div>
+            <div class="logout-link">
+                <a th:href="@{/logout}">
+                    <span class="material-symbols-outlined">logout</span>
+                    Logout
+                </a>
+            </div>
         </div>
     </div>
 </header>

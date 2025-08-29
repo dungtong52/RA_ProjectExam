@@ -1,15 +1,10 @@
 package com.ra.model.dto;
 
-import com.ra.model.entity.Role;
-import com.ra.validator.EmailUnique;
-import com.ra.validator.PhoneUnique;
-import jakarta.persistence.Column;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
@@ -17,8 +12,6 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Getter
 @Setter
-@PhoneUnique
-@EmailUnique
 public class UserRegisterRequest {
     @NotBlank(message = "Họ tên không được để trống")
     @Size(max = 100, message = "Họ tên phải có độ dài dưới 100 ký tự")
