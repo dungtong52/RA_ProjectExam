@@ -1,5 +1,6 @@
 package com.ra.interceptor;
 
+import com.ra.model.dto.UserResponse;
 import com.ra.model.entity.Role;
 import com.ra.model.entity.User;
 import jakarta.servlet.http.HttpServletRequest;
@@ -11,10 +12,10 @@ import org.springframework.web.servlet.HandlerInterceptor;
 public class AdminInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        User currentUser = (User) request.getSession().getAttribute("currentUser");
+        UserResponse currentUser = (UserResponse) request.getSession().getAttribute("currentUser");
 
         if (currentUser == null || currentUser.getRole() != Role.ADMIN) {
-            response.sendRedirect("auth/login");
+            response.sendRedirect("/login");
             return false;
         }
         return true;

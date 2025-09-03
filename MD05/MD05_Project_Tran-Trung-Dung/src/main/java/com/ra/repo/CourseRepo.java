@@ -11,4 +11,5 @@ import java.util.List;
 
 @Repository
 public interface CourseRepo extends JpaRepository<Course, Long>, JpaSpecificationExecutor<Course> {
+    Long countByStatus(Boolean status);
 }

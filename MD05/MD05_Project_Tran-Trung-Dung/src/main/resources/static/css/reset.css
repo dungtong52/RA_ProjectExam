@@ -45,6 +45,7 @@ body {
     opacity: 0;
     transform: translateY(-20px);
     animation: slideInOut 4s forwards;
+    pointer-events: none;
 }
 
 .alert-success {

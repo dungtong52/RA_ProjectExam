@@ -27,13 +27,11 @@ public interface EnrollmentRepo extends JpaRepository<Enrollment, Long>, JpaSpec
                 from Enrollment e
                 join e.course c
                 group by c.id, c.name, c.duration, c.image
-                order by c.id asc
+                order by count(distinct e.user.id) desc
             """)
     List<CourseStudentStatistic> getCourseWithTotalStudent();
 
-    List<Enrollment> findByUser(User user);
-
-    List<Enrollment> findByUser_Id(Long userId);
-
     List<Enrollment> findByStatusAndUser_Id(EnrollmentStatus status, Long userId);
+
+    Optional<Enrollment> findByUser_IdAndCourse_Id(Long userId, Long courseId);
 }

@@ -26,9 +26,11 @@ import java.util.Optional;
 @RequestMapping
 public class AuthController {
     private final UserService userService;
+    private final UserMapper userMapper;
 
-    public AuthController(UserService userService) {
+    public AuthController(UserService userService, UserMapper userMapper) {
         this.userService = userService;
+        this.userMapper = userMapper;
     }
 
     @GetMapping("/register")
@@ -92,7 +94,8 @@ public class AuthController {
             return "auth/login";
         }
 
-        session.setAttribute("currentUser", userLogin);
+        UserResponse userResponse = userMapper.toResponse(userLogin);
+        session.setAttribute("currentUser", userResponse);
         redirectAttributes.addFlashAttribute("success", "Đăng nhập thành công");
         if (userLogin.getRole() == Role.ADMIN) {
             return "redirect:/admin";

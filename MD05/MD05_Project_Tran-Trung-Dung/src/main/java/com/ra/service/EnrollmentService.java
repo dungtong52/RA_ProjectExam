@@ -26,4 +26,6 @@ public interface EnrollmentService {
     void cancelEnrollment(Long id);
 
     void cancelEnrollmentByStudentId(Long studentId);
+
+    Enrollment findByUserIdAndCourseId(Long userId, Long courseId);
 }

@@ -28,24 +28,24 @@
     </div>
 
     <div class="course-list">
-        <div class="course-card" th:each="courseDTO : ${courses}">
+        <div class="course-card" th:each="courseEnrollment : ${courseEnrollments}">
             <div class="course-thumbnail">
-                <img th:src="@{${courseDTO.getCourse().image}}" th:alt="*{courseDTO.getCourse().name}"/>
+                <img th:src="@{${courseEnrollment.getCourse().image}}" th:alt="*{courseEnrollment.getCourse().name}"/>
             </div>
             <div class="course-info">
-                <h3 th:text="${courseDTO.getCourse().name}"></h3>
+                <h3 th:text="${courseEnrollment.getCourse().name}"></h3>
                 <p class="explore-link">Let's explore</p>
                 <div class="course-details">
-                    <p><strong>Duration:</strong> <span th:text="${courseDTO.getCourse().duration}"></span> hour</p>
-                    <p><strong>Instructor:</strong> <span th:text="${courseDTO.getCourse().instructor}"></span></p>
+                    <p><strong>Duration:</strong> <span th:text="${courseEnrollment.getCourse().duration}"></span> hour</p>
+                    <p><strong>Instructor:</strong> <span th:text="${courseEnrollment.getCourse().instructor}"></span></p>
                 </div>
             </div>
             <div class="course-actions">
-                <a th:href="@{/user/register(courseId=${courseDTO.course.id})}"
-                   th:if="${!courseDTO.registered}" class="btn-registry"
+                <a th:href="@{/user/register(courseId=${courseEnrollment.course.id})}"
+                   th:if="${!courseEnrollment.registered}" class="btn-registry"
                    onclick="return confirm('Bạn có chắc chắn muốn đăng ký khóa học này không?')"
                 >Registry</a>
-                <span th:if="${courseDTO.registered}" class="btn-registered">Registered</span>
+                <span th:if="${courseEnrollment.registered}" class="btn-registered">Registered</span>
             </div>
         </div>
     </div>

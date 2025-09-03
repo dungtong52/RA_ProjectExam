@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="4fe07fd7-dd1c-42bf-8d0f-3db9b085d149" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/MD05_Project_Tran-Trung-Dung/src/main/java/com/ra/controller/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/MD05_Project_Tran-Trung-Dung/src/main/java/com/ra/controller/AdminController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MD05_Project_Tran-Trung-Dung/src/main/java/com/ra/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/MD05_Project_Tran-Trung-Dung/src/main/java/com/ra/controller/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MD05_Project_Tran-Trung-Dung/src/main/java/com/ra/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/MD05_Project_Tran-Trung-Dung/src/main/java/com/ra/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MD05_Project_Tran-Trung-Dung/src/main/java/com/ra/interceptor/AdminInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/MD05_Project_Tran-Trung-Dung/src/main/java/com/ra/interceptor/AdminInterceptor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MD05_Project_Tran-Trung-Dung/src/main/java/com/ra/interceptor/AuthInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/MD05_Project_Tran-Trung-Dung/src/main/java/com/ra/interceptor/AuthInterceptor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MD05_Project_Tran-Trung-Dung/src/main/java/com/ra/model/dto/CourseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/MD05_Project_Tran-Trung-Dung/src/main/java/com/ra/model/dto/CourseEnrollmentDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MD05_Project_Tran-Trung-Dung/src/main/java/com/ra/model/dto/UserResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/MD05_Project_Tran-Trung-Dung/src/main/java/com/ra/model/dto/UserResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MD05_Project_Tran-Trung-Dung/src/main/java/com/ra/repo/CourseRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/MD05_Project_Tran-Trung-Dung/src/main/java/com/ra/repo/CourseRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MD05_Project_Tran-Trung-Dung/src/main/java/com/ra/repo/EnrollmentRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/MD05_Project_Tran-Trung-Dung/src/main/java/com/ra/repo/EnrollmentRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MD05_Project_Tran-Trung-Dung/src/main/java/com/ra/service/EnrollmentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/MD05_Project_Tran-Trung-Dung/src/main/java/com/ra/service/EnrollmentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MD05_Project_Tran-Trung-Dung/src/main/java/com/ra/service/imp/EnrollmentServiceImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/MD05_Project_Tran-Trung-Dung/src/main/java/com/ra/service/imp/EnrollmentServiceImp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MD05_Project_Tran-Trung-Dung/src/main/java/com/ra/service/imp/StatisticServiceImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/MD05_Project_Tran-Trung-Dung/src/main/java/com/ra/service/imp/StatisticServiceImp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MD05_Project_Tran-Trung-Dung/src/main/resources/static/css/reset.css" beforeDir="false" afterPath="$PROJECT_DIR$/MD05_Project_Tran-Trung-Dung/src/main/resources/static/css/reset.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MD05_Project_Tran-Trung-Dung/src/main/resources/templates/user/history.html" beforeDir="false" afterPath="$PROJECT_DIR$/MD05_Project_Tran-Trung-Dung/src/main/resources/templates/user/history.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MD05_Project_Tran-Trung-Dung/src/main/resources/templates/user/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/MD05_Project_Tran-Trung-Dung/src/main/resources/templates/user/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tsubasa Plus Java Web Application _ Project Quản lý khóa học &amp; học viên (Giỏi).xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/~$Tsubasa Plus Java Web Application _ Project Quản lý khóa học &amp; học viên (Giỏi).xlsx" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 5
+}]]></component>
+  <component name="ProjectId" id="32C1jW0tY4ViSzVcUSHs1jp0Vmi" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/Admin/OneDrive/文档/DungTong/Rikkei/RA_ProjectExam/MD05"
+  }
+}]]></component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4fe07fd7-dd1c-42bf-8d0f-3db9b085d149" name="Changes" comment="" />
+      <created>1756909876505</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1756909876505</updated>
+    </task>
+    <servers />
+  </component>
+</project>

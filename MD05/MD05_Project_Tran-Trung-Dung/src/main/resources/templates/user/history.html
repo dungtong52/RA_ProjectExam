@@ -49,19 +49,19 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="courseDTO : ${courseDTOs}">
-                <td th:text="${courseDTO.course.id}"></td>
-                <td th:text="${courseDTO.course.name}"></td>
-                <td th:text="${courseDTO.course.duration}"></td>
-                <td th:text="${courseDTO.course.instructor}"></td>
+            <tr th:each="courseEnrollment : ${courseEnrollments}">
+                <td th:text="${courseEnrollment.course.id}"></td>
+                <td th:text="${courseEnrollment.course.name}"></td>
+                <td th:text="${courseEnrollment.course.duration}"></td>
+                <td th:text="${courseEnrollment.course.instructor}"></td>
                 <td>
-                    <img th:src="${courseDTO.course.image}" width="60" height="60" th:alt="${courseDTO.course.name}">
+                    <img th:src="${courseEnrollment.course.image}" width="60" height="60" th:alt="${courseEnrollment.course.name}">
                 </td>
-                <td th:text="${#temporals.format(courseDTO.course.createAt, 'dd/MM/yyyy')}"></td>
-                <td th:text="${courseDTO.course.status}"></td>
+                <td th:text="${#temporals.format(courseEnrollment.course.createAt, 'dd/MM/yyyy')}"></td>
+                <td th:text="${courseEnrollment.enrollment.status}"></td>
                 <td class="action-buttons">
                     <a class="btn-cancel"
-                       th:href="@{/user/cancelEnrollment/{id}(id=${courseDTO.course.id})}"
+                       th:href="@{/user/cancelEnrollment/{id}(id=${courseEnrollment.course.id})}"
                        onclick="return confirm('Bạn có chắc chắn muốn hủy khóa học này?')"
                     >Cancel</a>
                 </td>

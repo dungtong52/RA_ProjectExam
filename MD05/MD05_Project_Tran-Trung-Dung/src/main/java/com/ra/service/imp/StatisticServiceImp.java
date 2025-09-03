@@ -28,7 +28,7 @@ public class StatisticServiceImp implements StatisticService {
     public StatisticResponse getStatistic() {
         StatisticResponse statistic = new StatisticResponse();
         statistic.setTotalStudent(userRepo.countByRole(Role.STUDENT));
-        statistic.setTotalCourse(courseRepo.count());
+        statistic.setTotalCourse(courseRepo.countByStatus(true));
         statistic.setTotalEnrollment(enrollmentRepo.count());
         return statistic;
     }

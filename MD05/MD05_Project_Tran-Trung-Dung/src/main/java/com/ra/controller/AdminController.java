@@ -82,8 +82,7 @@ public class AdminController {
                               RedirectAttributes redirectAttributes) {
         enrollmentService.cancelEnrollmentByStudentId(studentId);
         userService.lockStudent(studentId);
-        redirectAttributes.addFlashAttribute("success", "Khóa tài khoản thành công.\n" +
-                "Đã hủy toàn bộ đơn đăng ký đang chờ.");
+        redirectAttributes.addFlashAttribute("success", "Thay đổi trạng thái tài khoản thành công.\n");
         return "redirect:/admin/users?page=" + page;
     }
 

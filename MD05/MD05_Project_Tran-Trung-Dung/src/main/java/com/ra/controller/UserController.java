@@ -1,6 +1,6 @@
 package com.ra.controller;
 
-import com.ra.model.dto.CourseDTO;
+import com.ra.model.dto.CourseEnrollmentDTO;
 import com.ra.model.dto.UserChangePasswordRequest;
 import com.ra.model.dto.UserRegisterRequest;
 import com.ra.model.dto.UserResponse;
@@ -8,7 +8,6 @@ import com.ra.model.entity.Course;
 import com.ra.model.entity.Enrollment;
 import com.ra.model.entity.EnrollmentStatus;
 import com.ra.model.entity.User;
-import com.ra.model.mapper.UserMapper;
 import com.ra.service.CourseService;
 import com.ra.service.EnrollmentService;
 import com.ra.service.UserService;
@@ -48,14 +47,14 @@ public class UserController {
         UserResponse currentUser = (UserResponse) session.getAttribute("currentUser");
         Page<Course> coursePage = courseService.searchCourse(keyword, PageRequest.of(page, size));
 
-        List<CourseDTO> courseDTOList = coursePage.getContent().stream()
+        List<CourseEnrollmentDTO> courseEnrollmentDTOList = coursePage.getContent().stream()
                 .map(course -> {
-                    boolean registered = enrollmentService.existsByUserIdAndCourse(currentUser.getId(), course);
-                    return new CourseDTO(course, registered);
+                    Enrollment enrollment = enrollmentService.findByUserIdAndCourseId(currentUser.getId(), course.getId());
+                    return new CourseEnrollmentDTO(course, enrollment, enrollment == null);
                 })
                 .toList();
 
-        model.addAttribute("courses", courseDTOList);
+        model.addAttribute("courseEnrollments", courseEnrollmentDTOList);
         model.addAttribute("currentPage", page);
         model.addAttribute("pageSize", size);
         model.addAttribute("totalPages", coursePage.getTotalPages());
@@ -172,12 +171,15 @@ public class UserController {
 
         Page<Course> coursePage = courseService.searchCourse(keyword, PageRequest.of(page, size, sort));
 
-        List<CourseDTO> courseDTOList = coursePage.getContent().stream()
-                .filter(course -> enrollmentService.existsByUserIdAndCourse(currentUser.getId(), course))
-                .map(course -> new CourseDTO(course, true))
+        List<CourseEnrollmentDTO> courseEnrollmentDTOList = coursePage.getContent().stream()
+                .map(course -> {
+                    Enrollment enrollment = enrollmentService.findByUserIdAndCourseId(currentUser.getId(), course.getId());
+                    boolean registered = (enrollment != null);
+                    return new CourseEnrollmentDTO(course, enrollment, registered);
+                })
                 .toList();
 
-        model.addAttribute("courseDTOs", courseDTOList);
+        model.addAttribute("courseEnrollments", courseEnrollmentDTOList);
         model.addAttribute("currentPage", page);
         model.addAttribute("pageSize", size);
         model.addAttribute("totalPages", coursePage.getTotalPages());

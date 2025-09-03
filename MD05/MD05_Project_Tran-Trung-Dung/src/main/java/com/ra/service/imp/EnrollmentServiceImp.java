@@ -79,4 +79,10 @@ public class EnrollmentServiceImp implements EnrollmentService {
                     enrollmentRepo.save(enrollment);
                 });
     }
+
+    @Override
+    public Enrollment findByUserIdAndCourseId(Long userId, Long courseId) {
+        return enrollmentRepo.findByUser_IdAndCourse_Id(userId, courseId)
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy đơn đăng ký khóa học"));
+    }
 }
