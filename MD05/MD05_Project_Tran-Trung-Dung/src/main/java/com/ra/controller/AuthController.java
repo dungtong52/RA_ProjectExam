@@ -48,13 +48,11 @@ public class AuthController {
             return "auth/register";
         }
         if (userService.findUserByEmail(request.getEmail()).isPresent()) {
-            model.addAttribute("user", request);
-            model.addAttribute("error", "Email đã tồn tại!");
+            result.rejectValue("email", "error.user", "Email đã tồn tại!");
             return "auth/register";
         }
         if (userService.findUserByPhone(request.getPhone()).isPresent()) {
-            model.addAttribute("user", request);
-            model.addAttribute("error", "Số điện thoại đã tồn tại!");
+            result.rejectValue("phone", "error.user", "Số điện thoại đã tồn tại!");
             return "auth/register";
         }
         User newUser = userService.register(request);

@@ -1,6 +1,7 @@
 package com.ra.service;
 
 import com.ra.model.dto.UserRegisterRequest;
+import com.ra.model.dto.UserUpdateRequest;
 import com.ra.model.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,7 +20,7 @@ public interface UserService {
 
     Page<User> searchUsers(String keyword, Pageable pageable);
 
-    User updateStudent(Long id, UserRegisterRequest request);
+    User updateStudent(Long id, UserUpdateRequest request);
 
     User changePassword(Long id, String newPassword);
 

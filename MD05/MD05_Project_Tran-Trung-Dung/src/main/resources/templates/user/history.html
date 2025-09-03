@@ -6,7 +6,8 @@
     <link rel="stylesheet" th:href="@{/css/reset.css}">
     <link rel="stylesheet" th:href="@{/css/user/headerStyle.css}">
     <link rel="stylesheet" th:href="@{/css/user/historyStyle.css}">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL@24,200,0&display=block" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL@24,200,0&display=block"
+          rel="stylesheet">
 </head>
 <body>
 <header th:replace="~{user/component/header :: header-fragment}"></header>
@@ -19,7 +20,7 @@
     <h1 class="page-title">History Enrollment</h1>
 
     <div class="search-container">
-        <form th:action="@{/user}" method="get">
+        <form th:action="@{/user/enrollments}" method="get">
             <select name="sortParam" id="sort">
                 <option value="status_asc" th:selected="${sort == 'status_asc'}">
                     Sort By Status ASC
@@ -28,7 +29,7 @@
                     Sort By Status DESC
                 </option>
             </select>
-            <input type="text" class="search-input" name="keyword" placeholder="search enrollment by name"
+            <input type="text" class="search-input" name="keyword" placeholder="search by course name"
                    th:value="${keyword}">
             <button type="submit" class="search-button">Search</button>
         </form>
@@ -49,19 +50,22 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="courseEnrollment : ${courseEnrollments}">
-                <td th:text="${courseEnrollment.course.id}"></td>
-                <td th:text="${courseEnrollment.course.name}"></td>
-                <td th:text="${courseEnrollment.course.duration}"></td>
-                <td th:text="${courseEnrollment.course.instructor}"></td>
+            <tr th:each="enrollmentDTO : ${enrollmentDTOs}">
+                <td th:text="${enrollmentDTO.course.id}"></td>
+                <td th:text="${enrollmentDTO.course.name}"></td>
+                <td th:text="${enrollmentDTO.course.duration}"></td>
+                <td th:text="${enrollmentDTO.course.instructor}"></td>
                 <td>
-                    <img th:src="${courseEnrollment.course.image}" width="60" height="60" th:alt="${courseEnrollment.course.name}">
+                    <img th:src="${enrollmentDTO.course.image}" width="60" height="60"
+                         th:alt="${enrollmentDTO.course.name}">
                 </td>
-                <td th:text="${#temporals.format(courseEnrollment.course.createAt, 'dd/MM/yyyy')}"></td>
-                <td th:text="${courseEnrollment.enrollment.status}"></td>
+                <td th:text="${#temporals.format(enrollmentDTO.course.createAt, 'dd/MM/yyyy')}"></td>
+                <td th:text="${enrollmentDTO.status}"
+                    th:class="'status-badge ' + ${enrollmentDTO.status.name().toLowerCase()}"></td>
                 <td class="action-buttons">
                     <a class="btn-cancel"
-                       th:href="@{/user/cancelEnrollment/{id}(id=${courseEnrollment.course.id})}"
+                       th:if="${enrollmentDTO.status.name() == 'WAITING'}"
+                       th:href="@{/user/cancelEnrollment/{id}(id=${enrollmentDTO.course.id})}"
                        onclick="return confirm('Bạn có chắc chắn muốn hủy khóa học này?')"
                     >Cancel</a>
                 </td>
@@ -72,17 +76,17 @@
 
     <div class="pagination">
         <a th:if="${currentPage > 0}"
-           th:href="@{/user(page=${currentPage - 1}, size=${pageSize}, keyword=${keyword})}"
+           th:href="@{/user/enrollments(page=${currentPage - 1}, size=${pageSize}, keyword=${keyword})}"
            class="arrow">&larr;</a>
 
         <a th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
-           th:href="@{/user(page=${i}, size=${pageSize}, keyword=${keyword})}"
+           th:href="@{/user/enrollments(page=${i}, size=${pageSize}, keyword=${keyword})}"
            th:text="${i+1}"
            th:classappend="${i == currentPage} ? 'active pag-btn' : 'pag-btn'">
         </a>
 
         <a th:if="${currentPage < totalPages - 1}"
-           th:href="@{/user(page=${currentPage + 1}, size=${pageSize}, keyword=${keyword})}"
+           th:href="@{/user/enrollments(page=${currentPage + 1}, size=${pageSize}, keyword=${keyword})}"
            class="arrow">&rarr;</a>
     </div>
 </main>

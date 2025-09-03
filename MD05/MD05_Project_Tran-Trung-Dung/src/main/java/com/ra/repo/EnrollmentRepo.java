@@ -5,6 +5,8 @@ import com.ra.model.entity.Course;
 import com.ra.model.entity.Enrollment;
 import com.ra.model.entity.EnrollmentStatus;
 import com.ra.model.entity.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
@@ -33,5 +35,5 @@ public interface EnrollmentRepo extends JpaRepository<Enrollment, Long>, JpaSpec
 
     List<Enrollment> findByStatusAndUser_Id(EnrollmentStatus status, Long userId);
 
-    Optional<Enrollment> findByUser_IdAndCourse_Id(Long userId, Long courseId);
+    Page<Enrollment> findByUser_Id(Long userId, Pageable pageable);
 }

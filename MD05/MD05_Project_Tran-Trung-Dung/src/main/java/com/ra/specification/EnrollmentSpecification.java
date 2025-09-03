@@ -8,6 +8,12 @@ import jakarta.persistence.criteria.JoinType;
 import org.springframework.data.jpa.domain.Specification;
 
 public class EnrollmentSpecification {
+    public static Specification<Enrollment> hasUserId(Long userId){
+        return (root, query, cb) ->
+        userId == null ? null :
+                cb.equal(root.get("user").get("id"), userId);
+    }
+
     public static Specification<Enrollment> hasCourseName(String keyword) {
         return (root, query, cb) ->
         {

@@ -3,7 +3,6 @@ package com.ra.service.imp;
 import com.ra.model.entity.Course;
 import com.ra.model.entity.Enrollment;
 import com.ra.model.entity.EnrollmentStatus;
-import com.ra.model.entity.User;
 import com.ra.repo.EnrollmentRepo;
 import com.ra.service.EnrollmentService;
 import com.ra.specification.EnrollmentSpecification;
@@ -12,7 +11,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -81,8 +79,11 @@ public class EnrollmentServiceImp implements EnrollmentService {
     }
 
     @Override
-    public Enrollment findByUserIdAndCourseId(Long userId, Long courseId) {
-        return enrollmentRepo.findByUser_IdAndCourse_Id(userId, courseId)
-                .orElseThrow(() -> new RuntimeException("Không tìm thấy đơn đăng ký khóa học"));
+    public Page<Enrollment> findByUserId(Long userId, String keyword, Pageable pageable) {
+        Specification<Enrollment> specification = Specification.allOf(
+                EnrollmentSpecification.hasUserId(userId),
+                EnrollmentSpecification.hasCourseName(keyword)
+        );
+        return enrollmentRepo.findAll(specification, pageable);
     }
 }

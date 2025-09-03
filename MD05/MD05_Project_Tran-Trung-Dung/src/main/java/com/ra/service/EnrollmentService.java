@@ -27,5 +27,5 @@ public interface EnrollmentService {
 
     void cancelEnrollmentByStudentId(Long studentId);
 
-    Enrollment findByUserIdAndCourseId(Long userId, Long courseId);
+    Page<Enrollment> findByUserId(Long userId, String keyword, Pageable pageable);
 }

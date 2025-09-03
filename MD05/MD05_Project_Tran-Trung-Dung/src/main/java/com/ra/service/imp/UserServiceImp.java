@@ -4,6 +4,7 @@ package com.ra.service.imp;
 import com.ra.model.dto.UserLoginRequest;
 import com.ra.model.dto.UserRegisterRequest;
 import com.ra.model.dto.UserResponse;
+import com.ra.model.dto.UserUpdateRequest;
 import com.ra.model.entity.Role;
 import com.ra.model.entity.User;
 import com.ra.model.mapper.UserMapper;
@@ -62,7 +63,7 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public User updateStudent(Long id, UserRegisterRequest request) {
+    public User updateStudent(Long id, UserUpdateRequest request) {
         return userRepo.findById(id)
                 .map(user -> {
                     user.setName(request.getName());

@@ -1,7 +1,7 @@
 package com.ra.model.dto;
 
 import com.ra.model.entity.Course;
-import com.ra.model.entity.Enrollment;
+import com.ra.model.entity.EnrollmentStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,8 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class CourseEnrollmentDTO {
+public class EnrollmentDTO {
     private Course course;
-    private Enrollment enrollment;
-    private boolean registered;
+    private EnrollmentStatus status;
 }

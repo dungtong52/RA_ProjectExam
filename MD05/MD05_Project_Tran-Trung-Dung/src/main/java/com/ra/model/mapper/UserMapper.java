@@ -2,6 +2,7 @@ package com.ra.model.mapper;
 
 import com.ra.model.dto.UserRegisterRequest;
 import com.ra.model.dto.UserResponse;
+import com.ra.model.dto.UserUpdateRequest;
 import com.ra.model.entity.User;
 import org.springframework.stereotype.Component;
 
@@ -29,6 +30,17 @@ public class UserMapper {
                 .createAt(user.getCreateAt())
                 .role(user.getRole())
                 .status(user.getStatus())
+                .build();
+    }
+
+    public UserUpdateRequest toUpdateRequest(UserResponse response) {
+        return UserUpdateRequest.builder()
+                .id(response.getId())
+                .name(response.getName())
+                .dob(response.getDob())
+                .email(response.getEmail())
+                .sex(response.getSex())
+                .phone(response.getPhone())
                 .build();
     }
 }

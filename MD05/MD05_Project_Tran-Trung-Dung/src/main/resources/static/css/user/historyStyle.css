@@ -77,6 +77,27 @@
     font-size: 0.9rem;
 }
 
+.status-badge {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.status-badge.waiting {
+    color: orange;
+}
+
+.status-badge.confirm {
+    color: green;
+}
+
+.status-badge.denied {
+    color: red;
+}
+
+.status-badge.cancel {
+    color: purple;
+}
+
 .action-buttons a {
     text-decoration: none;
     text-transform: uppercase;

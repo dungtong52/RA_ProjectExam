@@ -1,13 +1,11 @@
 package com.ra.controller;
 
-import com.ra.model.dto.CourseEnrollmentDTO;
-import com.ra.model.dto.UserChangePasswordRequest;
-import com.ra.model.dto.UserRegisterRequest;
-import com.ra.model.dto.UserResponse;
+import com.ra.model.dto.*;
 import com.ra.model.entity.Course;
 import com.ra.model.entity.Enrollment;
 import com.ra.model.entity.EnrollmentStatus;
 import com.ra.model.entity.User;
+import com.ra.model.mapper.UserMapper;
 import com.ra.service.CourseService;
 import com.ra.service.EnrollmentService;
 import com.ra.service.UserService;
@@ -24,6 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/user")
@@ -31,11 +30,13 @@ public class UserController {
     private final CourseService courseService;
     private final EnrollmentService enrollmentService;
     private final UserService userService;
+    private final UserMapper userMapper;
 
-    public UserController(CourseService courseService, EnrollmentService enrollmentService, UserService userService) {
+    public UserController(CourseService courseService, EnrollmentService enrollmentService, UserService userService, UserMapper userMapper) {
         this.courseService = courseService;
         this.enrollmentService = enrollmentService;
         this.userService = userService;
+        this.userMapper = userMapper;
     }
 
     @GetMapping
@@ -47,14 +48,14 @@ public class UserController {
         UserResponse currentUser = (UserResponse) session.getAttribute("currentUser");
         Page<Course> coursePage = courseService.searchCourse(keyword, PageRequest.of(page, size));
 
-        List<CourseEnrollmentDTO> courseEnrollmentDTOList = coursePage.getContent().stream()
+        List<CourseDTO> courseDTOList = coursePage.getContent().stream()
                 .map(course -> {
-                    Enrollment enrollment = enrollmentService.findByUserIdAndCourseId(currentUser.getId(), course.getId());
-                    return new CourseEnrollmentDTO(course, enrollment, enrollment == null);
+                    boolean registered = enrollmentService.existsByUserIdAndCourse(currentUser.getId(), course);
+                    return new CourseDTO(course, registered);
                 })
                 .toList();
 
-        model.addAttribute("courseEnrollments", courseEnrollmentDTOList);
+        model.addAttribute("courseDTOs", courseDTOList);
         model.addAttribute("currentPage", page);
         model.addAttribute("pageSize", size);
         model.addAttribute("totalPages", coursePage.getTotalPages());
@@ -88,12 +89,12 @@ public class UserController {
     @GetMapping("/profile")
     public String showEditForm(Model model, HttpSession session) {
         UserResponse currentUser = (UserResponse) session.getAttribute("currentUser");
-        model.addAttribute("user", currentUser);
+        model.addAttribute("user", userMapper.toUpdateRequest(currentUser));
         return "user/profile";
     }
 
     @PostMapping("/profile")
-    public String editForm(@Valid @ModelAttribute("user") UserRegisterRequest request,
+    public String editForm(@Valid @ModelAttribute("user") UserUpdateRequest request,
                            BindingResult result, HttpSession session,
                            Model model, RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
@@ -101,13 +102,21 @@ public class UserController {
             return "user/profile";
         }
         UserResponse currentUser = (UserResponse) session.getAttribute("currentUser");
-        if (userService.findUserByEmail(request.getEmail()).isPresent()) {
-            model.addAttribute("user", request);
-            model.addAttribute("error", "Email đã tồn tại!");
+
+        Optional<User> existsEmailUser = userService.findUserByEmail(request.getEmail());
+        if (existsEmailUser.isPresent() && !existsEmailUser.get().getId().equals(currentUser.getId())) {
+            result.rejectValue("email", "error.user", "Email đã tồn tại!");
             return "user/profile";
         }
+        Optional<User> existsPhoneUser = userService.findUserByPhone(request.getPhone());
+        if (existsPhoneUser.isPresent() && !existsPhoneUser.get().getId().equals(currentUser.getId())) {
+            result.rejectValue("phone", "error.user","Số điện thoại đã tồn tại!");
+            return "user/profile";
+        }
+
         User updatedUser = userService.updateStudent(currentUser.getId(), request);
-        session.setAttribute("currentUser", updatedUser);
+        UserResponse response = userMapper.toResponse(updatedUser);
+        session.setAttribute("currentUser", response);
 
         redirectAttributes.addFlashAttribute("success", "Thay đổi thông tin tài khoản thành công");
         return "redirect:/user";
@@ -120,7 +129,7 @@ public class UserController {
         User user = userService.findUserById(currentUser.getId())
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy người dùng"));
 
-        model.addAttribute("password", user.getPassword());
+        model.addAttribute("user", new UserChangePasswordRequest());
         return "user/changePassword";
     }
 
@@ -143,11 +152,11 @@ public class UserController {
                 redirectAttributes.addFlashAttribute("successMsg", "Thay đổi mật khẩu thành công");
                 return "redirect:/user";
             } else {
-                model.addAttribute("errorMsg", "Mật khẩu xác nhận không chính xác");
+                model.addAttribute("error", "Mật khẩu xác nhận không chính xác");
                 return "user/changePassword";
             }
         } else {
-            model.addAttribute("errorMsg", "Mật khẩu cũ không chính xác");
+            model.addAttribute("error", "Mật khẩu cũ không chính xác");
             return "user/changePassword";
         }
     }
@@ -169,20 +178,18 @@ public class UserController {
                 Sort.by(sortBy).descending() :
                 Sort.by(sortBy).ascending();
 
-        Page<Course> coursePage = courseService.searchCourse(keyword, PageRequest.of(page, size, sort));
+        Page<Enrollment> enrollmentPage = enrollmentService.findByUserId(currentUser.getId(), keyword, PageRequest.of(page, size, sort));
 
-        List<CourseEnrollmentDTO> courseEnrollmentDTOList = coursePage.getContent().stream()
-                .map(course -> {
-                    Enrollment enrollment = enrollmentService.findByUserIdAndCourseId(currentUser.getId(), course.getId());
-                    boolean registered = (enrollment != null);
-                    return new CourseEnrollmentDTO(course, enrollment, registered);
-                })
+        List<EnrollmentDTO> enrollmentDTOList = enrollmentPage.getContent().stream()
+                .map(enrollment ->
+                        new EnrollmentDTO(enrollment.getCourse(), enrollment.getStatus())
+                )
                 .toList();
 
-        model.addAttribute("courseEnrollments", courseEnrollmentDTOList);
+        model.addAttribute("enrollmentDTOs", enrollmentDTOList);
         model.addAttribute("currentPage", page);
         model.addAttribute("pageSize", size);
-        model.addAttribute("totalPages", coursePage.getTotalPages());
+        model.addAttribute("totalPages", enrollmentPage.getTotalPages());
         model.addAttribute("keyword", keyword);
         model.addAttribute("sort", sortParam);
         return "user/history";
