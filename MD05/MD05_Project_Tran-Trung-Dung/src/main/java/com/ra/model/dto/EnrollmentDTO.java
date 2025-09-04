@@ -12,6 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class EnrollmentDTO {
+    private Long id;
     private Course course;
     private EnrollmentStatus status;
 }

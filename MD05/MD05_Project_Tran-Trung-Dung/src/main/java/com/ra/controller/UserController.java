@@ -110,7 +110,7 @@ public class UserController {
         }
         Optional<User> existsPhoneUser = userService.findUserByPhone(request.getPhone());
         if (existsPhoneUser.isPresent() && !existsPhoneUser.get().getId().equals(currentUser.getId())) {
-            result.rejectValue("phone", "error.user","Số điện thoại đã tồn tại!");
+            result.rejectValue("phone", "error.user", "Số điện thoại đã tồn tại!");
             return "user/profile";
         }
 
@@ -174,15 +174,17 @@ public class UserController {
         String sortBy = sortPart[0];
         String sortDirection = sortPart[1];
 
-        Sort sort = sortDirection.equalsIgnoreCase("desc") ?
+        Sort sort1 = sortDirection.equalsIgnoreCase("desc") ?
                 Sort.by(sortBy).descending() :
                 Sort.by(sortBy).ascending();
 
-        Page<Enrollment> enrollmentPage = enrollmentService.findByUserId(currentUser.getId(), keyword, PageRequest.of(page, size, sort));
+        Sort sort2 = sort1.and(Sort.by("duration").descending());
+
+        Page<Enrollment> enrollmentPage = enrollmentService.findByUserId(currentUser.getId(), keyword, PageRequest.of(page, size, sort2));
 
         List<EnrollmentDTO> enrollmentDTOList = enrollmentPage.getContent().stream()
                 .map(enrollment ->
-                        new EnrollmentDTO(enrollment.getCourse(), enrollment.getStatus())
+                        new EnrollmentDTO(enrollment.getId(), enrollment.getCourse(), enrollment.getStatus())
                 )
                 .toList();
 
@@ -201,6 +203,6 @@ public class UserController {
                                    RedirectAttributes redirectAttributes) {
         enrollmentService.cancelEnrollment(enrollmentId);
         redirectAttributes.addFlashAttribute("success", "Hủy đơn đăng ký thành công");
-        return "redirect:/user?page=" + page;
+        return "redirect:/user/enrollments?page=" + page;
     }
 }

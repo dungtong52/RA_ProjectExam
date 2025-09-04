@@ -65,7 +65,7 @@
                 <td class="action-buttons">
                     <a class="btn-cancel"
                        th:if="${enrollmentDTO.status.name() == 'WAITING'}"
-                       th:href="@{/user/cancelEnrollment/{id}(id=${enrollmentDTO.course.id})}"
+                       th:href="@{/user/cancelEnrollment/{id}(id=${enrollmentDTO.id})}"
                        onclick="return confirm('Bạn có chắc chắn muốn hủy khóa học này?')"
                     >Cancel</a>
                 </td>
